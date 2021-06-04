@@ -1,0 +1,7 @@
+{
+    "name": "diabetes-diagnostic-app",
+    "version": "1.0.0",
+    "scripts": {
+      "postinstall": "npm install --prefix backend"
+    }
+  }
