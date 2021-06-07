@@ -70,6 +70,7 @@ app.get('/symptoms', async (req, res) => {
     res.json(symptoms)
 })
 
+app.post('/symptoms', authenticateUser)
 app.post('/symptoms', async (req, res) => {
     const { message } = req.body
 
@@ -95,12 +96,13 @@ app.post('/signup', async (req, res) => {
         }).save()
 
         res.json({
+            success: true,
             userID: newUser._id,
             username: newUser.username,
             accessToken: newUser.accessToken
         })
     } catch (error) {
-        res.status(400).json({ message: 'Invalid request', error })
+        res.status(400).json({ success: false, message: 'Invalid request', error })
 
     }
 })
@@ -113,16 +115,17 @@ app.post('/signin', async (req, res) => {
 
         if (user && bcrypt.compareSync(password, user.password)) {
             res.json({
+                success: true,
                 userID: user._id,
                 username: user.username,
                 accessToken: user.accessToken
             })
         } else {
-            res.status(404).json({ message: "User not found" })
+            res.status(404).json({ success: false, message: "User not found" })
 
         }
     } catch (error) {
-        res.status(400).json({ message: "Invalid request", error })
+        res.status(400).json({ success: false,  message: "Invalid request", error })
     }
 })
 

@@ -1,4 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch, batch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+
+import user from '../reducers/user'
+
 
 import { API_URL } from '../reusable/urls'
 
@@ -6,6 +11,17 @@ const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [mode, setMode] = useState(null)
+
+    const accessToken = useSelector(store => store.user.accessToken)
+    const dispatch = useDispatch()
+    const history = useHistory()
+
+    useEffect(() => {
+        // redirect user to '/' path
+        if (accessToken) {
+            history.push('/')
+        }
+    }, [accessToken])
 
     const onFormSubmit = (e) => {
         e.preventDefault()
@@ -19,11 +35,27 @@ const Login = () => {
         }
 
         fetch(API_URL(mode), options)
-            .then(res => console.log(res))
+            .then((res) => res.json())
+            .then((data) => {
+               console.log(data)
+                if (data.success) {
+                    batch(() => {
+                        dispatch(user.actions.setUsername(data.username))
+                        dispatch(user.actions.setAccessToken(data.accessToken))
+                        dispatch(user.actions.setErrors(null))
+                    })
+                    
+
+                    
+                } else {
+                    dispatch(user.actions.setErrors(data))
+                }
+            })
+            
     }
 
     return (
-         <form onSubmit={onFormSubmit}>
+        <form onSubmit={onFormSubmit}>
             <input 
                 type="text" 
                 value={username} 
