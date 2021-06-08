@@ -21,7 +21,7 @@ const Login = () => {
         if (accessToken) {
             history.push('/')
         }
-    }, [accessToken])
+    }, [accessToken, history])
 
     const onFormSubmit = (e) => {
         e.preventDefault()
