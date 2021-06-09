@@ -13,6 +13,7 @@ const Login = () => {
     const [mode, setMode] = useState(null)
 
     const accessToken = useSelector(store => store.user.accessToken)
+    const errors = useSelector(store => store.user.errors)
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -43,6 +44,11 @@ const Login = () => {
                         dispatch(user.actions.setUsername(data.username))
                         dispatch(user.actions.setAccessToken(data.accessToken))
                         dispatch(user.actions.setErrors(null))
+
+                        localStorage.setItem('user', JSON.stringify({
+                            username:data.username,
+                            accessToken: data.accessToken
+                        }))
                     })
                     
 
@@ -55,21 +61,25 @@ const Login = () => {
     }
 
     return (
-        <form onSubmit={onFormSubmit}>
-            <input 
-                type="text" 
-                value={username} 
-                onChange={(e) => setUsername(e.target.value)} 
-            />
-            <input 
-                type="password" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-            />
-            <button type="submit" onClick={() => setMode('signin')}>Sign in</button>
-            <button type="submit" onClick={() => setMode('signup')}>Sign up</button>
+        <div>
+            <form onSubmit={onFormSubmit}>
+                <input 
+                    type="text" 
+                    value={username} 
+                    onChange={(e) => setUsername(e.target.value)} 
+                />
+                <input 
+                    type="password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                />
+                <button type="submit" onClick={() => setMode('signin')}>Sign in</button>
+                <button type="submit" onClick={() => setMode('signup')}>Sign up</button>
 
-        </form>
+            </form>
+            {errors && <div className="errors">{errors.message}</div>}
+        </div>
+        
     )
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import{ API_URL } from '../reusable/urls'
 
@@ -42,9 +42,8 @@ const Main = () => {
     return (
         <div>
             <div>Main</div>
-            <Link to="/login">To Login</Link>
             {symptomsItems.map(symptom => (
-                <div key={symptoms._id}>{symptom.message}</div>
+                <div key={symptom._id}>{symptom.message}</div>
             ))}
 
 

@@ -1,15 +1,18 @@
 import React from 'react'
-import { useDispatch, batch } from 'react-redux'
+import { useDispatch, useSelector, batch } from 'react-redux'
 
 import user from '../reducers/user'
 
 const Header = () => {
+    const accessToken = useSelector(store => store.user.accessToken)
     const dispatch = useDispatch()
 
     const onButtonClick = () => {
         batch(() => {
             dispatch(user.actions.setUsername(null))
             dispatch(user.actions.setAccessToken(null))
+
+            localStorage.removeItem('user')
         })
         
 
@@ -17,7 +20,7 @@ const Header = () => {
 
     return (
         <header>
-            <button onClick={onButtonClick}>Logout</button>
+            {accessToken && <button onClick={onButtonClick}>Logout</button>}
         </header>
     )
 }
