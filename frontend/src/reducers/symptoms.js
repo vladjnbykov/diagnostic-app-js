@@ -3,11 +3,24 @@ import { createSlice } from '@reduxjs/toolkit'
 const symptoms = createSlice({
     name: 'symptoms',
     initialState: {
-        items: []
+        
+        age: null, 
+        gender: null, 
+        checkedItems: {}
+        
     },
     reducers: {
-        setSymptoms: (store, action) => {
-            store.items = action.payload
+        setAge: (store, action) => {
+            store.age = action.payload
+        },
+        setGender: (store, action) => {
+            store.gender = action.payload
+        },
+        setCheckedItems: (store, action) => {
+            store.checkedItems = action.payload
+        },
+        setErrors: (store, action) => {
+            store.errors = action.payload
         }
         
     }

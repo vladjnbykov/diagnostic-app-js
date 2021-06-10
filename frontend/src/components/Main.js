@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 
@@ -12,15 +12,16 @@ import { checkboxes } from "../utils/checkboxes"
 import Checkbox from "./Checkbox"
 
 const Main = () => {
+    //const [newSymptom, setNewSymptom] = useState("");
+
     const accessToken = useSelector(store => store.user.accessToken)
-    const symptomsItems = useSelector(store => store.symptoms.items)
+    const checkedItems = useSelector(store => store.symptoms.checkedItems)
     
     const dispatch = useDispatch()
     const history = useHistory()
 
     const [age, setAge] = useState('')
     const [gender, setGender] = useState('')
-
 
     
       
@@ -36,16 +37,14 @@ const Main = () => {
         useEffect(() => {
         console.log("checkedItems: ", checkedItems);
         }, [checkedItems])
-
-         
-        
-      
+     
         return (
           <div>
             <h4>Check if you suffer from :</h4>  
             {checkboxes.map(item => (
               <label key={item.key}>
-                {item.name}
+                {/*{item.name}*/}  
+                {item.label}
                 <Checkbox
                   name={item.name}
                   checked={checkedItems[item.name]}
@@ -54,23 +53,63 @@ const Main = () => {
               </label>
             ))}
           </div>
-        );
-      };
+        )
+      }
     
-
-    
-
-
     useEffect(() => {
         if (!accessToken) {
             history.push('/login')
         }
     }, [accessToken, history]) 
+
+
+    useEffect(() => {
+        if (accessToken) {
+          const options = {
+            method: "GET",
+            headers: {
+              Authorization: accessToken
+              
+            }
+          }
+          fetch(API_URL('symptoms'), options)
+            .then((res) => res.json())
+            .then((data) => dispatch(symptoms.actions.setSymptoms(data)))
+        }
+    }, [accessToken, dispatch])
+    
+
     
     const onFormSubmit = (e) => {
         e.preventDefault()
-    }
+        
+        const options = {
+            method: 'POST',
+            headers: {
+                Authorization: accessToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ age, gender, checkedItems })
+          }
+      
+          fetch(API_URL('symptoms'), options)
+            .then((res) => res.json())
+            .then((data) => {
+               
+                batch(() => {
+                  dispatch(symptoms.actions.setAge(data.age))
+                  dispatch(symptoms.actions.setGender(data.gender))
+                  dispatch(symptoms.actions.setCheckedItems(data.checkedItems))
+                  dispatch(symptoms.actions.setErrors(null))
+                 })
+              
+            })
+
+        
+
+
     
+}
 
     return (
         <div>
@@ -106,8 +145,8 @@ const Main = () => {
                     <label htmlFor="female">female</label>
 
                 </div>
-                    {CheckboxRender()}
                 <div>
+                    {CheckboxRender()}
                     
                 </div>
                

@@ -14,7 +14,20 @@ mongoose.Promise = Promise
 
 // MongoDB collection for set of symptoms
 const Symptom = mongoose.model('Symptom', {
-    message: String
+    age: { 
+        type: Number,
+        required: true
+    },
+    gender: String,
+    polyuria: Boolean,
+    polydipsia: Boolean,
+    weakness: Boolean,
+    genital_trush: Boolean,
+    itching: Boolean,
+    irritability: Boolean,
+    delayed_healing: Boolean,
+    alopecia: Boolean,
+    obesity: Boolean
 })
 
 // MongoDB collection for users
@@ -60,9 +73,6 @@ app.use(cors())
 app.use(express.json())
 
 // Routes
-app.get('/', (req, res) => {
-    res.send('Hello world')
-})
 
 app.get('/symptoms', authenticateUser)
 app.get('/symptoms', async (req, res) => {
@@ -72,10 +82,23 @@ app.get('/symptoms', async (req, res) => {
 
 app.post('/symptoms', authenticateUser)
 app.post('/symptoms', async (req, res) => {
-    const { message } = req.body
+    const { age, gender, polyuria, polydipsia, weakness, genital_thrush, itching, irritability, delayed_healing, alopecia, obesity, checkedItems } = req.body
 
     try {
-        const newSymptom = await new Symptom({ message }).save()
+        const newSymptom = await new Symptom({ 
+            age, 
+            gender, 
+            polyuria, 
+            polydipsia, 
+            weakness, 
+            genital_thrush, 
+            itching, 
+            irritability, 
+            delayed_healing, 
+            alopecia, 
+            obesity,
+            checkedItems
+         }).save()
         res.json(newSymptom)
 
     } catch (error) {

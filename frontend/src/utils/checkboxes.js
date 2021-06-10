@@ -15,8 +15,8 @@ export const checkboxes = [
       label: "weakness"
     },
     {
-      name: "genital-thrush",
-      key: "genital-thrush",
+      name: "genital_thrush",
+      key: "genital_thrush",
       label: "genital thrush"
     },
     {
@@ -30,8 +30,8 @@ export const checkboxes = [
       label: "irritability"
     },
     {
-      name: "delayed-healing",
-      key: "delayed-healing",
+      name: "delayed_healing",
+      key: "delayed_healing",
       label: "delayed healing"
     },
     {
