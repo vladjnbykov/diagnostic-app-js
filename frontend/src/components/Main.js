@@ -32,14 +32,17 @@ const Main = () => {
             ...checkedItems,
             [event.target.name]: event.target.checked
           })
-          console.log("checkedItems: ", checkedItems);
-        }
-      
+        }  
+        useEffect(() => {
+        console.log("checkedItems: ", checkedItems);
+        }, [checkedItems])
+
+         
         
       
         return (
           <div>
-            <lable>Checked item name : {checkedItems["check-box-1"]} </lable> <br />
+            <h4>Check if you suffer from :</h4>  
             {checkboxes.map(item => (
               <label key={item.key}>
                 {item.name}
