@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import ReactDOM from 'react-dom'
+
 
 import{ API_URL } from '../reusable/urls'
 
 import symptoms from '../reducers/symptoms'
 
+import { checkboxes } from "../utils/checkboxes"
+import Checkbox from "./Checkbox"
 
 const Main = () => {
     const accessToken = useSelector(store => store.user.accessToken)
@@ -19,76 +21,41 @@ const Main = () => {
     const [age, setAge] = useState('')
     const [gender, setGender] = useState('')
 
-    const Checkbox = ({ type = "checkbox", name, checked=false, onChange }) => {
-        console.log("Checkbox: ", name, checked)
 
-        return (
-            <input type={type} name={name} checked={checked} onChange={onChange} />
-
-        )
-    }
-
-
-    const CheckboxGroup = () => {
+    
+      
+    const CheckboxRender = () => {
         const [checkedItems, setCheckedItems] = useState({})
-
-        const handleChange = (e) => {
-            setCheckedItems({...checkedItems, [e.target.name] : e.target.checked })
-
+      
+        const handleChange = event => {
+          setCheckedItems({
+            ...checkedItems,
+            [event.target.name]: event.target.checked
+          })
+          console.log("checkedItems: ", checkedItems);
         }
-        useEffect(() => {
-            console.log("checkedItems: ", checkedItems)
-        }, [checkedItems])
+      
+        
+      
+        return (
+          <div>
+            <lable>Checked item name : {checkedItems["check-box-1"]} </lable> <br />
+            {checkboxes.map(item => (
+              <label key={item.key}>
+                {item.name}
+                <Checkbox
+                  name={item.name}
+                  checked={checkedItems[item.name]}
+                  onChange={handleChange}
+                />
+              </label>
+            ))}
+          </div>
+        );
+      };
+    
 
-        const checkboxes = [
-            {
-                name: 'polyuria',
-                key: 'polyuria',
-                label: 'polyuria',
-            },
-            {
-                name: 'polydipsia',
-                key: 'polydipsia',
-                label: 'polydipsia',
-            },
-            {
-                name: 'weakness',
-                key: 'weakness',
-                label: 'weakness',
-            },
-            {
-                name: 'genital-thrush',
-                key: 'genital-thrush',
-                label: 'genital thrush',
-            },
-            {
-                name: 'itching',
-                key: 'itching',
-                label: 'itching',
-            },
-            {
-                name: 'irritability',
-                key: 'irritability',
-                label: 'irritability',
-            },
-            {
-                name: 'delayed-healing',
-                key: 'delayed-healing',
-                label: 'delayed healing',
-            },
-            {
-                name: 'alopecia',
-                key: 'alopecia',
-                label: 'alopecia',
-            },
-            {
-                name: 'obesity',
-                key: 'obesity',
-                label: 'obesity',
-            }
-
-        ]
-    }
+    
 
 
     useEffect(() => {
@@ -136,21 +103,9 @@ const Main = () => {
                     <label htmlFor="female">female</label>
 
                 </div>
-
+                    {CheckboxRender()}
                 <div>
-                    <label>Checked item name : {checkedItems["polyuria"]}</label> <br/>
-                    {checkboxes.map(item => (
-                            <label key={item.key}>
-                                {item.name}
-                                <Checkbox 
-                                    name={item.name} 
-                                    checked={checkedItems[item.name]} 
-                                    onChange={handleChange} 
-                                />
-
-                            </label>
-                        ))
-                    }
+                    
                 </div>
                
                 
