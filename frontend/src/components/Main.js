@@ -63,7 +63,7 @@ const Main = () => {
                 batch(() => {
                   dispatch(symptoms.actions.setAge(data.age))
                   dispatch(symptoms.actions.setGender(data.gender))
-                  dispatch(symptoms.actions.setItems(data.items))
+                  dispatch(symptoms.actions.setCheckedItems(data.checkedItems))
                   dispatch(symptoms.actions.setErrors(null))
                  })
               

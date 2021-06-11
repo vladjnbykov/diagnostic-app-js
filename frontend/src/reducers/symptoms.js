@@ -6,7 +6,8 @@ const symptoms = createSlice({
         
         age: null, 
         gender: null, 
-        checkedItems: {}
+        checkedItems: {},
+        
         
     },
     reducers: {
@@ -19,6 +20,10 @@ const symptoms = createSlice({
         setCheckedItems: (store, action) => {
             store.checkedItems = action.payload
         },
+        setSymptoms: (store, action) => {
+            store.items = action.payload
+        },
+        
         setErrors: (store, action) => {
             store.errors = action.payload
         }
