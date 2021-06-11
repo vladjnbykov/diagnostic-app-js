@@ -19,6 +19,8 @@ const Symptom = mongoose.model('Symptom', {
         required: true
     },
     gender: String,
+    checkedItems: {},
+    items: {},
     polyuria: Boolean,
     polydipsia: Boolean,
     weakness: Boolean,
@@ -28,6 +30,8 @@ const Symptom = mongoose.model('Symptom', {
     delayed_healing: Boolean,
     alopecia: Boolean,
     obesity: Boolean
+
+    
 })
 
 // MongoDB collection for users
