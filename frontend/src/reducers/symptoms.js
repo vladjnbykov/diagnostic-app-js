@@ -11,6 +11,8 @@ const symptoms = createSlice({
         
     },
     reducers: {
+        
+        
         setAge: (store, action) => {
             store.age = action.payload
         },

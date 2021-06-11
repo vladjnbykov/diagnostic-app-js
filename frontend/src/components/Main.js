@@ -2,15 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-
+import { checkboxes } from "../utils/checkboxes"
+import Checkbox from "./Checkbox"
 
 import{ API_URL } from '../reusable/urls'
 
 import symptoms from '../reducers/symptoms'
-
-import CheckboxRender from "./CheckboxRender"
-
-
 
 
 const Main = () => {
@@ -23,7 +20,19 @@ const Main = () => {
 
     const [age, setAge] = useState('')
     const [gender, setGender] = useState('')
-   
+    const [checkedItems, setCheckedItems] = useState({})
+    
+    const handleChange = event => {
+      setCheckedItems({
+        ...checkedItems,
+        [event.target.name]: event.target.checked
+      })
+    }  
+
+    useEffect(() => {
+    console.log("checkedItems: ", checkedItems);
+    }, [checkedItems])
+ 
     useEffect(() => {
         if (!accessToken) {
             history.push('/login')
@@ -38,6 +47,7 @@ const Main = () => {
               Authorization: accessToken
             }
           }
+
           fetch(API_URL('symptoms'), options)
             .then((res) => res.json())
             .then((data) => dispatch(symptoms.actions.setSymptoms(data)))
@@ -53,7 +63,7 @@ const Main = () => {
                 Authorization: accessToken,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ age, gender, items })
+            body: JSON.stringify({ age, gender, checkedItems, items })
           }
       
           fetch(API_URL('symptoms'), options)
@@ -68,11 +78,6 @@ const Main = () => {
                  })
               
             })
-
-        
-
-
-    
 }
 
     return (
@@ -107,17 +112,23 @@ const Main = () => {
                         onChange={() => setGender('female')}
                     />
                     <label htmlFor="female">female</label>
-
                 </div>
-                
-                <CheckboxRender />
-                    
-              
+
+                <div>
+                  <h4>Check if you suffer from :</h4>  
+                  {checkboxes.map(item => (
+                    <label key={item.key}>
+                      {/*{item.name}*/}  
+                      {item.label}
+                      <Checkbox
+                        name={item.name}
+                        checked={checkedItems[item.name]}
+                        onChange={handleChange}
+                      />
+                    </label>
+                  ))}
+                </div>
                
-                
-
-
-
                 <button type="submit">Submit</button>
 
             </form>
