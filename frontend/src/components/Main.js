@@ -128,16 +128,6 @@ const Main = () => {
             // ML data post
             console.log("params", parameters)
              // it is empty for unknown reason
-            
-                
-               
-  
-                
-                 
-                  
-              
-
-
 
 
 }
@@ -145,8 +135,7 @@ const Main = () => {
     return (
         <div>
             <div>Main</div>
-            
-
+ 
             <form onSubmit={onFormSubmit}>
                 <div>
                     <p>input your age</p>
