@@ -26,6 +26,8 @@ const Main = () => {
       setCheckedItems({
         ...checkedItems,
         [event.target.name]: event.target.checked
+        
+
       })
     }  
 
@@ -69,6 +71,25 @@ const Main = () => {
           fetch(API_URL('symptoms'), options)
             .then((res) => res.json())
             .then((data) => {
+              let parameters = {
+                "age": data.age,
+                "gender": data.gender === 'male' ? 1 : 0,
+                "polyuria": data.checkedItems.polyuria === undefined ? 0 : Number(data.checkedItems.polyuria) ,
+                "polydipsia": data.checkedItems.polydipsia === undefined ? 0 :Number(data.checkedItems.polydipsia),
+                "weakness": data.checkedItems.weakness === undefined ? 0 :Number(data.checkedItems.weakness),
+                "genital_thrush": data.checkedItems.genital_thrush === undefined ? 0 :Number(data.checkedItems.genital_thrush),
+                "itching": data.checkedItems.itching === undefined ? 0 :Number(data.checkedItems.itching),
+                "irritability": data.checkedItems.irritability === undefined ? 0 :Number(data.checkedItems.irritability),
+                "delayed_healing": data.checkedItems.delayed_healing === undefined ? 0 :Number(data.checkedItems.delayed_healing),
+                "alopecia": data.checkedItems.alopecia === undefined ? 0 :Number(data.checkedItems.alopecia),
+                "obesity": data.checkedItems.obesity === undefined ? 0 :Number(data.checkedItems.obesity) 
+              }
+              
+
+              console.log("multiparameters", parameters)
+              console.log("mixtest", parameters.itching)
+
+              console.log(typeof(parameters))
                
                 batch(() => {
                   dispatch(symptoms.actions.setAge(data.age))
