@@ -5,7 +5,8 @@ import { useHistory } from 'react-router-dom'
 import { checkboxes } from "../utils/checkboxes"
 import Checkbox from "./Checkbox"
 
-import{ API_URL } from '../reusable/urls'
+import { API_URL } from '../reusable/urls'
+import { API_ML} from '../reusable/urls'
 
 import symptoms from '../reducers/symptoms'
 
@@ -21,6 +22,8 @@ const Main = () => {
     const [age, setAge] = useState('')
     const [gender, setGender] = useState('')
     const [checkedItems, setCheckedItems] = useState({})
+    let [parameters, setParameters] = useState({})
+    
     
     const handleChange = event => {
       setCheckedItems({
@@ -43,6 +46,7 @@ const Main = () => {
 
     useEffect(() => {
         if (accessToken) {
+
           const options = {
             method: "GET",
             headers: {
@@ -53,9 +57,12 @@ const Main = () => {
           fetch(API_URL('symptoms'), options)
             .then((res) => res.json())
             .then((data) => dispatch(symptoms.actions.setSymptoms(data)))
+
+          
         }
-    }, [accessToken, dispatch]) 
-    
+    }, [accessToken, dispatch])
+
+          
     const onFormSubmit = (e) => {
         e.preventDefault()
         
@@ -71,7 +78,7 @@ const Main = () => {
           fetch(API_URL('symptoms'), options)
             .then((res) => res.json())
             .then((data) => {
-              let parameters = {
+              parameters = {
                 "age": data.age,
                 "gender": data.gender === 'male' ? 1 : 0,
                 "polyuria": data.checkedItems.polyuria === undefined ? 0 : Number(data.checkedItems.polyuria) ,
@@ -84,10 +91,10 @@ const Main = () => {
                 "alopecia": data.checkedItems.alopecia === undefined ? 0 :Number(data.checkedItems.alopecia),
                 "obesity": data.checkedItems.obesity === undefined ? 0 :Number(data.checkedItems.obesity) 
               }
-              
 
               console.log("multiparameters", parameters)
               console.log("mixtest", parameters.itching)
+              console.log("stringify", JSON.stringify(parameters))
 
               console.log(typeof(parameters))
                
@@ -95,10 +102,44 @@ const Main = () => {
                   dispatch(symptoms.actions.setAge(data.age))
                   dispatch(symptoms.actions.setGender(data.gender))
                   dispatch(symptoms.actions.setCheckedItems(data.checkedItems))
+
+
                   dispatch(symptoms.actions.setErrors(null))
+
+                  dispatch(symptoms.actions.setParameters(parameters))
+
                  })
+
+          console.log("params-inside-fun", parameters)
+
+          // ML data posting        
+          const options1 = {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify(parameters)
+          }
+      
+          fetch(API_ML, options1)     // unexpected end of input in promise
+            .then((res) => res.json())
+            .then((ml_data) => console.log("ml response", ml_data))
+
+        })
+
+            // ML data post
+            console.log("params", parameters)
+             // it is empty for unknown reason
+            
+                
+               
+  
+                
+                 
+                  
               
-            })
+
+
+
+
 }
 
     return (

@@ -25,6 +25,10 @@ const symptoms = createSlice({
         setSymptoms: (store, action) => {
             store.items = action.payload
         },
+
+        setParameters: (store, action) => {
+            store.parameters = action.payload
+        },
         
         setErrors: (store, action) => {
             store.errors = action.payload
