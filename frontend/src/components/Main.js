@@ -94,6 +94,7 @@ const Main = () => {
                 "obesity": data.checkedItems.obesity === undefined ? 0 :Number(data.checkedItems.obesity) 
               }
 
+              
               // ML fetch inside of first fetch
 
               const options1 = {
@@ -101,12 +102,12 @@ const Main = () => {
                 headers: {
                 
                   'Content-Type': 'application/json'
-              },
-                mode: 'no-cors',
+                },
+                
                 body: JSON.stringify(parameters)
               }
           
-              fetch(API_ML, options1)     // unexpected end of input in promise
+              fetch(API_ML, options1)     
                 .then((res) => res.json())
                 .then((ml_data) => 
                   console.log("ml response", ml_data))
