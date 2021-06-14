@@ -1,0 +1,64 @@
+body {
+    margin: auto;
+    background-color: rgb(237, 248, 247);
+    color: navy;
+}
+
+.login-title {
+    display: flex;
+    font-size: 22px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.login-template {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 100px;
+    
+
+}
+
+
+.btn-signin {
+    margin: 10px;
+    margin-left: 16%;
+    background:papayawhip;
+    border-radius: 5px;
+    border: 1px solid rgb(16, 16, 49);
+}
+.btn-signin:hover {
+    background: rgb(28, 246, 28);
+    transition: 0.7s,
+}
+.btn-signup {
+    
+    background:papayawhip;
+    border-radius: 5px;
+    border: 1px solid rgb(16, 16, 49);
+}
+
+.btn-signup:hover {
+    background: rgb(246, 87, 167);
+    transition: 0.7s;
+}
+
+
+
+.errors {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 15%;
+    border: 1px solid black;
+    background: red; 
+    max-width: 500px;
+}

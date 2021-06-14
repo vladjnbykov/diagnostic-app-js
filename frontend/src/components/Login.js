@@ -2,12 +2,32 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+
 import user from '../reducers/user'
 
 
 import { API_URL } from '../reusable/urls'
 
+import './login.css'
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      "& > *": {
+        margin: theme.spacing(1),
+        width: "20ch",
+        
+        
+        
+      }
+    }
+  }));
+
 const Login = () => {
+
+    const classes = useStyles()
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [mode, setMode] = useState(null)
@@ -25,7 +45,10 @@ const Login = () => {
     }, [accessToken, history])
 
     const onFormSubmit = (e) => {
+        
+
         e.preventDefault()
+
 
         const options = {
             method: 'POST',
@@ -61,24 +84,43 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={onFormSubmit}>
-                <input 
-                    type="text" 
-                    value={username} 
-                    onChange={(e) => setUsername(e.target.value)} 
-                />
-                <input 
-                    type="password" 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)} 
-                />
-                <button type="submit" onClick={() => setMode('signin')}>Sign in</button>
-                <button type="submit" onClick={() => setMode('signup')}>Sign up</button>
+        <div className="login-template">
+            <h1 className="login-title">Diabetes early prediction</h1>
 
-            </form>
-            {errors && <div className="errors">{errors.message}</div>}
+            <div className={classes.root} autoComplete="off">
+
+                <form className="login-form" onSubmit={onFormSubmit}>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        label="username" 
+                        autoFocus
+
+                        /*type="text" */
+                        value={username} 
+                        onChange={(e) => setUsername(e.target.value)} 
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        label="password" 
+                        autoFocus
+                        type="password" 
+                        value={password} 
+                        onChange={(e) => setPassword(e.target.value)} 
+                    />
+                    <button type="submit" className="btn-signin" onClick={() => setMode('signin')}>Log in</button>
+                    <button type="submit" className="btn-signup" onClick={() => setMode('signup')}>Sign up</button>
+
+                </form>
+                {errors && <div className="errors">{errors.message}</div>}
+            </div>
+
+
         </div>
+        
         
     )
 }
