@@ -30,6 +30,10 @@ const symptoms = createSlice({
             store.parameters = action.payload
         },
         
+        setRisk: (store, action) => {
+            store.risk = action.payload
+        },
+        
         setErrors: (store, action) => {
             store.errors = action.payload
         }

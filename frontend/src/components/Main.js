@@ -26,6 +26,8 @@ const Main = () => {
     const [checkedItems, setCheckedItems] = useState({})
     let [parameters, setParameters] = useState({})
     
+    const [risk, setRisk] = useState({})
+    
     
     const handleChange = event => {
       setCheckedItems({
@@ -109,8 +111,16 @@ const Main = () => {
           
               fetch(API_ML, options1)     
                 .then((res) => res.json())
-                .then((ml_data) => 
-                  console.log("ml response", ml_data))
+                .then((ml_data) => {
+                  console.log("ml response", ml_data)
+                  const risk = Object.entries(ml_data)[0][1]
+                  console.log(risk)
+
+
+                  dispatch(symptoms.actions.setRisk(risk))
+
+
+                })
 
 
 
@@ -199,6 +209,7 @@ const Main = () => {
                 
 
             </form>
+            <Prognosis />
             
         </div>
     )

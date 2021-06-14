@@ -1,9 +1,13 @@
 import React from 'react'
 
 const Prognosis = () => {
-    <div>
-        PROGNOSIS
-    </div>
+
+    return (
+        <div>
+            PROGNOSIS
+        </div>
+    )
+    
 
 }
 
