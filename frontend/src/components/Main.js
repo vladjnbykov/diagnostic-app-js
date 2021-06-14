@@ -5,6 +5,8 @@ import { useHistory } from 'react-router-dom'
 import { checkboxes } from "../utils/checkboxes"
 import Checkbox from "./Checkbox"
 
+import Prognosis from "./Prognosis"
+
 import { API_URL } from '../reusable/urls'
 import { API_ML} from '../reusable/urls'
 
@@ -92,6 +94,25 @@ const Main = () => {
                 "obesity": data.checkedItems.obesity === undefined ? 0 :Number(data.checkedItems.obesity) 
               }
 
+              // ML fetch inside of first fetch
+
+              const options1 = {
+                method: 'POST',
+                headers: {
+                
+                  'Content-Type': 'application/json'
+              },
+                mode: 'no-cors',
+                body: JSON.stringify(parameters)
+              }
+          
+              fetch(API_ML, options1)     // unexpected end of input in promise
+                .then((res) => res.json())
+                .then((ml_data) => 
+                  console.log("ml response", ml_data))
+
+
+
               console.log("multiparameters", parameters)
               console.log("mixtest", parameters.itching)
               console.log("stringify", JSON.stringify(parameters))
@@ -103,28 +124,19 @@ const Main = () => {
                   dispatch(symptoms.actions.setGender(data.gender))
                   dispatch(symptoms.actions.setCheckedItems(data.checkedItems))
 
-
                   dispatch(symptoms.actions.setErrors(null))
 
                   dispatch(symptoms.actions.setParameters(parameters))
 
+                  
                  })
 
           console.log("params-inside-fun", parameters)
 
           // ML data posting        
-          const options1 = {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify(parameters)
-          }
-      
-          fetch(API_ML, options1)     // unexpected end of input in promise
-            .then((res) => res.json())
-            .then((ml_data) => console.log("ml response", ml_data))
-
+          
         })
-
+        
             // ML data post
             console.log("params", parameters)
              // it is empty for unknown reason
@@ -181,9 +193,12 @@ const Main = () => {
                 </div>
                
                 <button type="submit">Submit</button>
+                
+                
+                
 
             </form>
-
+            
         </div>
     )
 }
