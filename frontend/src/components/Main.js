@@ -159,7 +159,7 @@ const Main = () => {
           console.log("params-inside-fun", parameters)
 
           // ML data posting        
-          
+          setIsSubmited(true)
         })
         
             // ML data post
