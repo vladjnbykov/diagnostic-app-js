@@ -1,24 +1,23 @@
-import React from 'react'
-import { Provider } from 'react-redux'
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import React from "react";
+import { Provider } from "react-redux";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Main from './components/Main'
-import Login from './components/Login'
+import Main from "./components/Main";
+import Login from "./components/Login";
 
-import Prognosis from './components/Prognosis'
+import Prognosis from "./components/Prognosis";
 
-import Header from './components/Header'
-import user from './reducers/user'
-import symptoms from './reducers/symptoms'
-
+import Header from "./components/Header";
+import user from "./reducers/user";
+import symptoms from "./reducers/symptoms";
 
 const reducer = combineReducers({
   user: user.reducer,
-  symptoms: symptoms.reducer
-})
+  symptoms: symptoms.reducer,
+});
 
-const store = configureStore({ reducer })
+const store = configureStore({ reducer });
 
 const App = () => {
   return (
@@ -32,8 +31,7 @@ const App = () => {
         </Switch>
       </Provider>
     </BrowserRouter>
-    
-  )
-}
+  );
+};
 
 export default App;
