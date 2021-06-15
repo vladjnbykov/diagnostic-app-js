@@ -28,7 +28,21 @@ const Main = () => {
     
     const [risk, setRisk] = useState({})
     
+    const [isSubmitted, setIsSubmited] = useState(false)
     
+    const isFormComplete = () => {
+      if (age === '') {
+        return false
+      }
+
+      if (gender === '') {
+        return false
+      }
+
+      return true
+
+    }
+
     const handleChange = event => {
       setCheckedItems({
         ...checkedItems,
@@ -154,8 +168,9 @@ const Main = () => {
 
 
 }
+    if (isSubmitted === false) {
 
-    return (
+      return (
         <div>
             <div>Main</div>
  
@@ -203,16 +218,31 @@ const Main = () => {
                   ))}
                 </div>
                
+                {/* If block is active no fetch going API, it goes direct to Prognosis component*/}
+                {/*<div className="submit">
+                  <input
+                    type="submit"
+                    value="Submit"
+                    disabled={!isFormComplete()}
+                    onClick={
+                      () => setIsSubmited(true)
+                    } />
+                  </div> */}
                 <button type="submit">Submit</button>
-                
                 
                 
 
             </form>
-            <Prognosis />
+            
             
         </div>
-    )
+      )
+    } else {
+      return (
+        <Prognosis />
+      )
+    }
+    
 }
 
 export default Main

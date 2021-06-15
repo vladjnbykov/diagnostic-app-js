@@ -6,6 +6,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Main from './components/Main'
 import Login from './components/Login'
 
+import Prognosis from './components/Prognosis'
+
 import Header from './components/Header'
 import user from './reducers/user'
 import symptoms from './reducers/symptoms'
@@ -26,6 +28,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/login" component={Login} />
+          <Route path="/prognosis" component={Prognosis} />
         </Switch>
       </Provider>
     </BrowserRouter>
