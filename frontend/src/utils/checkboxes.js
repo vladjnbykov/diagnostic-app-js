@@ -7,7 +7,7 @@ export const checkboxes = [
     {
       name: "polydipsia",
       key: "polydipsia",
-      label: "polydipsia"
+      label: "excessive thirst"
     },
     {
       name: "weakness",

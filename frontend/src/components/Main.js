@@ -12,6 +12,8 @@ import { API_ML } from "../reusable/urls";
 
 import symptoms from "../reducers/symptoms";
 
+import "./main.css";
+
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const items = useSelector((store) => store.symptoms.items);
@@ -27,6 +29,17 @@ const Main = () => {
   const [risk, setRisk] = useState({});
 
   const [isSubmitted, setIsSubmited] = useState(false);
+
+
+  const isFormComplete = () => {
+    if (age === '') {
+      return false
+    }
+    if (gender === '') {
+      return false
+    }
+    return true
+  }
 
   const handleChange = (event) => {
     setCheckedItems({
@@ -161,19 +174,24 @@ const Main = () => {
   if (isSubmitted === false) {
     return (
       <div>
-        <div>Main</div>
+      
 
-        <form onSubmit={onFormSubmit}>
+        <form className="main" onSubmit={onFormSubmit}>
+          <h3>Welcome to diabetes risk estimation test</h3>
           <div>
-            <p>input your age</p>
+            <h4>input your age</h4>
             <input
+              className="age"
               type="number"
               value={age}
               onChange={(e) => setAge(e.target.value)}
             />
           </div>
-          <div>
+          <div className="gender-title">
+            <h4>gender:</h4>
+
             <input
+              className="gender"
               type="radio"
               id="male"
               name="gender"
@@ -190,15 +208,17 @@ const Main = () => {
             />
             <label htmlFor="female">female</label>
           </div>
+          
+          <h4>check if you suffer from:</h4>
 
-          <div>
-            <h4>Check if you suffer from :</h4>
+          <div className="checkboxes">
             {checkboxes.map((item) => (
               <label key={item.key}>
                 {/*{item.name}*/}
                 {item.label}
                 <Checkbox
                   name={item.name}
+                  
                   checked={checkedItems[item.name]}
                   onChange={handleChange}
                 />
@@ -206,7 +226,7 @@ const Main = () => {
             ))}
           </div>
 
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={!isFormComplete()}>Submit</button>
         </form>
       </div>
     );
