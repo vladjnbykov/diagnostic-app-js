@@ -10,37 +10,36 @@ import './prognosis.css'
 const Prognosis = () => {
   const accessToken = useSelector((store) => store.user.accessToken)
 
-  const results = useSelector((store) => store.symptoms.risk)
+  const results = Math.round(useSelector((store) => store.symptoms.risk))
   const history = useHistory()
 
-  const Block = styled.div`
-  background-color: white;
-  color: ${({ color }) => color || "blue"};
-  padding: 10px;
-  border: 1px solid ${({ color }) => color || "blue"};
-  display: inline-block;
-  margin: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: lightblue;
-  }
-`;
-
-const Background = styled.div`
-  background-color: blue;
-  `
-
-
+ 
 
   const isBackgroundColor = () => {
     let color
-    if (results >= 0 && results < 30) {
-      color = "blue"
-    } else if (results > 30) {
-      color = "red"
+    if (results >= 0 && results < 15) {
+      color = "#CCCCFF"
+    } else if (results >= 15 && results < 40) {
+      color = "#D0FFCD"
+    } else if (results >= 40 && results < 70) {
+      color = "#FFFFCD"
+    } else if (results >= 70) {
+      color = "#FFCDCD"
     }
     return color
   }
+
+  const Background = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background-color: ${isBackgroundColor()};
+  border: 1px solid navy;
+  margin: 50px 40px 50px 40px;
+  `    
+
+
 
   useEffect(() => {
     if (!accessToken) {
@@ -51,9 +50,15 @@ const Background = styled.div`
   return (
     <>
       <div className="prognosis">
-        <Block/>
+        <h2>Results</h2>
+        <Background>
+          <h5>
+            Your risk of developing diabetes is {results}%
+          </h5>
+
+        </Background>
       
-        Your risk of developing diabetes is {results}%
+        
 
       </div>
 
