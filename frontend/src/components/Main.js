@@ -75,6 +75,7 @@ const Main = () => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
+    
 
     const options = {
       method: "POST",
@@ -147,6 +148,7 @@ const Main = () => {
             console.log(risk);
 
             dispatch(symptoms.actions.setRisk(risk));
+
           });
 
         console.log("multiparameters", parameters);
@@ -164,11 +166,12 @@ const Main = () => {
 
           dispatch(symptoms.actions.setParameters(parameters));
         });
-
+        
         console.log("params-inside-fun", parameters);
 
         setIsSubmited(true);
       });
+      
 
     console.log("params", parameters);
   };
@@ -234,6 +237,7 @@ const Main = () => {
   } else {
     return <Prognosis />;
   }
+
 };
 
 export default Main;

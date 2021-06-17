@@ -115,7 +115,6 @@ const Login = () => {
             Sign up
           </button>
         </form>
-        {errors && <div className="errors">{errors.message}</div>}
       </div>
     </div>
   );

@@ -1,53 +1,46 @@
-import React, { useEffect } from "react"
+import React, { useEffect } from "react";
 
-import { useSelector } from "react-redux"
-import { useHistory } from "react-router-dom"
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-import styled from "styled-components"
+import styled from "styled-components";
 
-import "./prognosis.css"
+import "./prognosis.css";
+
 
 
 const Background = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-    background-color: ${props => props.color ? props.color : "white"};
-    border: 1px solid navy;
-    margin: 50px 40px 50px 40px;
-  `;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background-color: ${(props) => (props.color ? props.color : "white")};
+  border: 1px solid navy;
+  margin: 50px 40px 50px 40px;
+`;
 
-
-  //
+//
 const Prognosis = () => {
-  const accessToken = useSelector((store) => store.user.accessToken)
+  const accessToken = useSelector((store) => store.user.accessToken);
 
-  const results = Math.round(useSelector((store) => store.symptoms.risk))
-  const history = useHistory()
-
-  
+  const results = Math.round(useSelector((store) => store.symptoms.risk));
+  const history = useHistory();
+  //
 
   const isBackgroundColor = () => {
-    let color
+    let color;
     if (results >= 0 && results < 15) {
-      color = "#CCCCFF"
+      color = "#CCCCFF";
     } else if (results >= 15 && results < 40) {
-      color = "#D0FFCD"
+      color = "#D0FFCD";
     } else if (results >= 40 && results < 70) {
-      color = "#FFFFCD"
+      color = "#FFFFCD";
     } else if (results >= 70) {
-      color = "#FFCDCD"
+      color = "#FFCDCD";
     }
-    
-    return (
-      color
-      )
+
+    return color;
   };
-
-  
-
-
 
   useEffect(() => {
     if (!accessToken) {
@@ -59,10 +52,11 @@ const Prognosis = () => {
     <>
       <div className="prognosis">
         <h2>Results</h2>
-        <Background color= {isBackgroundColor}>
+        <Background color={isBackgroundColor}>
           <h5>Your risk of developing diabetes is {results}%</h5>
         </Background>
       </div>
+
     </>
   );
 };

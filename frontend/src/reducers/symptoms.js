@@ -5,8 +5,11 @@ const symptoms = createSlice({
   initialState: {
     age: null,
     gender: null,
-    checkedItems: {},
+    
+    checkedItems: {}
+    
   },
+
   reducers: {
     setAge: (store, action) => {
       store.age = action.payload;
@@ -29,10 +32,14 @@ const symptoms = createSlice({
       store.risk = action.payload;
     },
 
+    
+
     setErrors: (store, action) => {
       store.errors = action.payload;
-    },
-  },
+    }
+
+    
+  }
 });
 
 export default symptoms;

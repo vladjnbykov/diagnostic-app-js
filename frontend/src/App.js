@@ -6,7 +6,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Main from "./components/Main";
 import Login from "./components/Login";
 
-//import Prognosis from "./components/Prognosis";
+
 
 import Header from "./components/Header";
 import user from "./reducers/user";
