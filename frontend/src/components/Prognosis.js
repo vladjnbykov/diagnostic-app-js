@@ -4,6 +4,7 @@ import { useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
 
 import styled from 'styled-components'
+import './prognosis.css'
 
 
 const Prognosis = () => {
@@ -48,14 +49,20 @@ const Background = styled.div`
   }, [accessToken, history])
 
   return (
+    <>
+      <div className="prognosis">
+        <Block/>
+      
+        Your risk of developing diabetes is {results}%
+
+      </div>
 
     
-    <div className="prognosis">
-      <Block/>
-      
-      Your risk of developing diabetes is {results}%
+    </>
 
-    </div>
+
+    
+    
   )
 };
 

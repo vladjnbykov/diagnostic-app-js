@@ -23,7 +23,7 @@ const Main = () => {
 
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [checkedItems, setCheckedItems] = useState({});
+  const [checkedItems, setCheckedItems] = useState("");
   let [parameters, setParameters] = useState({});
 
   const [risk, setRisk] = useState({});
@@ -82,17 +82,18 @@ const Main = () => {
         Authorization: accessToken,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ age, gender, checkedItems, items }),
+      body: JSON.stringify({ age, gender, checkedItems, items, parameters }),
     };
 
     fetch(API_URL("symptoms"), options)
       .then((res) => res.json())
       .then((data) => {
+        console.log("data", data)
         parameters = {
           age: data.age,
           gender: data.gender === "male" ? 1 : 0,
           polyuria:
-            data.checkedItems.polyuria === undefined
+            data.checkedItems.polyuria === undefined 
               ? 0
               : Number(data.checkedItems.polyuria),
           polydipsia:
@@ -226,7 +227,7 @@ const Main = () => {
             ))}
           </div>
 
-          <button type="submit" disabled={!isFormComplete()}>Submit</button>
+          <button  type="submit" className="form-submit-btn" disabled={!isFormComplete()} >Submit</button>
         </form>
       </div>
     );
