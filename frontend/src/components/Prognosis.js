@@ -52,7 +52,7 @@ const Prognosis = () => {
     <>
       <div className="prognosis">
         <h2>Results</h2>
-        <Background color={isBackgroundColor}>
+        <Background color={isBackgroundColor()}>
           <h5>Your risk of developing diabetes is {results}%</h5>
         </Background>
       </div>

@@ -9,6 +9,7 @@ body {
   font-size: 22px;
   justify-content: center;
   align-items: center;
+  margin-top: 170px;
 }
 
 .login-template {
@@ -16,7 +17,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
+  
 }
 
 .btn-signin {
@@ -25,6 +26,8 @@ body {
   background: papayawhip;
   border-radius: 5px;
   border: 1px solid rgb(16, 16, 49);
+  box-shadow: 1px 1px 1px 1px rgba(2, 58, 80, 0.4);
+
 }
 .btn-signin:hover {
   background: rgb(28, 246, 28);
@@ -34,6 +37,8 @@ body {
   background: papayawhip;
   border-radius: 5px;
   border: 1px solid rgb(16, 16, 49);
+  box-shadow: 1px 1px 1px 1px rgba(2, 58, 80, 0.4);
+
 }
 
 .btn-signup:hover {

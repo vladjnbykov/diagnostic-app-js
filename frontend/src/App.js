@@ -8,7 +8,7 @@ import Login from "./components/Login";
 
 
 
-import Header from "./components/Header";
+import Footer from "./components/Footer";
 import user from "./reducers/user";
 import symptoms from "./reducers/symptoms";
 
@@ -23,11 +23,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <Header />
         <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/login" component={Login} />
         </Switch>
+        <Footer />
+
       </Provider>
     </BrowserRouter>
   );

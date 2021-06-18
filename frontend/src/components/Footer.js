@@ -3,7 +3,9 @@ import { useDispatch, useSelector, batch } from "react-redux";
 
 import user from "../reducers/user";
 
-const Header = () => {
+import "./footer.css";
+
+const Footer = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
 
@@ -17,10 +19,17 @@ const Header = () => {
   };
 
   return (
-    <header>
-      {accessToken && <button onClick={onButtonClick}>Logout</button>}
-    </header>
+    <>
+      <footer>
+        <div className="footer">
+          <h5>Adress: Stockholm, Sweden</h5>
+          
+          <a href="mailto: vlad.jnbykov@gmail.com"><h5>Contact</h5></a>
+          {accessToken && <button onClick={onButtonClick}>Logout</button>}
+        </div>
+      </footer>
+    </>
   );
 };
 
-export default Header;
+export default Footer;

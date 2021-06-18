@@ -1,0 +1,35 @@
+html,
+body {
+    height: 100%;
+    margin: 0px;
+}
+
+body {
+    position:relative;
+    margin: 0;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+.footer {
+  display: flex;
+  position: absolute;
+  background: rgb(170, 238, 241);
+  height: 30px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid rgb(1, 30, 44);
+  box-shadow: 2px 5px 2px 2px rgba(2, 58, 80, 0.4);
+  bottom: 3px;
+  right:2px;
+  left: 0;
+}
+
+h5 {
+  color: rgb(27, 16, 75);
+}
+
+a {
+    text-decoration: none;
+  }
