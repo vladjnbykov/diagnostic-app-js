@@ -181,7 +181,7 @@ const Main = () => {
       
 
         <form className="main" onSubmit={onFormSubmit}>
-          <h3>Welcome to diabetes risk estimation test</h3>
+          <h3 className="main-title">Welcome to diabetes risk estimation test</h3>
           <div>
             <h4>input your age</h4>
             <input

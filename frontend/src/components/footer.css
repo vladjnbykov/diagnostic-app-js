@@ -1,14 +1,14 @@
 html,
 body {
-    height: 100%;
-    margin: 0px;
+  height: 100%;
+  margin: 0px;
 }
 
 body {
-    position:relative;
-    margin: 0;
-    min-height: 100%;
-    overflow-x: hidden;
+  position: relative;
+  margin: 0;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 .footer {
@@ -22,7 +22,7 @@ body {
   border: 1px solid rgb(1, 30, 44);
   box-shadow: 2px 5px 2px 2px rgba(2, 58, 80, 0.4);
   bottom: 3px;
-  right:2px;
+  right: 2px;
   left: 0;
 }
 
@@ -31,5 +31,38 @@ h5 {
 }
 
 a {
-    text-decoration: none;
-  }
+  text-decoration: none;
+}
+
+.btn-logout {
+  margin: 20px;
+  text-decoration: none;
+  color: rgb(39, 80, 155);
+  border: 1px solid rgb(121, 96, 161);
+  box-shadow: 1px 1px 1px 1px rgba(136, 33, 177, 0.6);
+  border-radius: 4px;
+  position: relative;
+  transition: all 1s;
+  overflow: hidden;
+}
+
+.btn-logout:before {
+  content: "sure?";
+  color: white;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(231, 3, 3);
+  transform: translateX(-100%);
+  transition: all 1s;
+}
+
+.btn-logout:hover:before {
+  transform: translateX(0);
+}
+
+.btn-logout:hover {
+  color: white;
+}

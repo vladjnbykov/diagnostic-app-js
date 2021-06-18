@@ -16,6 +16,8 @@ const Background = styled.div`
   padding: 5px;
   background-color: ${(props) => (props.color ? props.color : "white")};
   border: 1px solid navy;
+  border-radius: 4px;
+  box-shadow: 1px 1px 1px 1px rgba(2, 58, 80, 0.4);
   margin: 50px 40px 50px 40px;
 `;
 
@@ -51,7 +53,7 @@ const Prognosis = () => {
   return (
     <>
       <div className="prognosis">
-        <h2>Results</h2>
+        <h2 className="prognosis-title">Results</h2>
         <Background color={isBackgroundColor()}>
           <h5>Your risk of developing diabetes is {results}%</h5>
         </Background>

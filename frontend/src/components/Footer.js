@@ -25,7 +25,7 @@ const Footer = () => {
           <h5>Adress: Stockholm, Sweden</h5>
           
           <a href="mailto: vlad.jnbykov@gmail.com"><h5>Contact</h5></a>
-          {accessToken && <button onClick={onButtonClick}>Logout</button>}
+          {accessToken && <button className="btn-logout" onClick={onButtonClick}>Logout</button>}
         </div>
       </footer>
     </>

@@ -8,8 +8,11 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-top: 30px;
+  margin-top: 10px;
+}
 
+.main-title {
+  margin-top: 50px;
 }
 
 .age {
@@ -19,13 +22,16 @@ body {
   height: 20px;
   margin-left: 23px;
   margin-bottom: 20px;
+  border: 1px solid navy;
+  box-shadow: 1px 1px 1px 1px rgba(63, 62, 144, 0.4);
+  outline: none;
 }
 
 .gender-title {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    margin:0;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  margin: 0;
 }
 
 .checkboxes {
@@ -33,84 +39,81 @@ body {
   flex-direction: column;
   align-content: center;
   border: 1px solid navy;
+  box-shadow: 1px 1px 1px 1px rgba(63, 62, 144, 0.4);
   padding: 10px;
   margin: 5px;
   width: 180px;
   margin-bottom: 30px;
+  
 }
 
- /******************ALL DONE BUTTON**************/
- .form-submit-btn {
-    content: '';
-    background-color: transparent;
-    width:200px;
-    height: 40px;
-    text-transform: uppercase;
-    text-align: center;
-    line-height: 40px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    position: relative;
-    transition: all 0.5s;
-    color: transparent;
-  }
-  
-  .form-submit-btn:before {
-    content: 'ready';
-    color: rgb(238, 238, 245);
-    font-weight: 900;
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    width: 100%;
-    height: 100%;
-    background-color: #54d0f6;
-    z-index: -1;
-    mix-blend-mode: multiply;
-    transition: all 0.5s;
-    transform-origin: top;
-  }
-  
-  .form-submit-btn:after {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 100%;
-    height: 100%;
-    background-color: #e964f5;
-    z-index: -1;
-    mix-blend-mode: multiply;
-    transition: all 0.5s;
-    transform-origin: bottom;
-  }
-  
-  .form-submit-btn:hover:before {
-    top: -6px;
-    left: 0;
-    transform: perspective(1000px) rotateX(75deg);
-  }
-  
-  .form-submit-btn:hover:after {
-    
-    top: 6px;
-    left: 0;
-    transform: perspective(1000px) rotateX(-77deg)
-  }
-  
-  .form-submit-btn:hover {
-    content: 'sure?';
-    color: #020355;
-    font-weight:900;
-    background-color: rgba(250, 4, 4, 0.137);
-    cursor: pointer;
-  }
+/******************ALL DONE BUTTON**************/
+.form-submit-btn {
+  content: "";
+  background-color: transparent;
+  width: 200px;
+  height: 40px;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 40px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  position: relative;
+  transition: all 0.5s;
+  color: transparent;
+}
 
-  .form-submit-btn:disabled,
-  .form-submit-btn[disabled] {
-      visibility:hidden;
-      
-  }
+.form-submit-btn:before {
+  content: "ready";
+  color: rgb(238, 238, 245);
+  font-weight: 900;
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 100%;
+  height: 100%;
+  background-color: #54d0f6;
+  z-index: -1;
+  mix-blend-mode: multiply;
+  transition: all 0.5s;
+  transform-origin: top;
+}
 
-  
-  
+.form-submit-btn:after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 100%;
+  height: 100%;
+  background-color: #e964f5;
+  z-index: -1;
+  mix-blend-mode: multiply;
+  transition: all 0.5s;
+  transform-origin: bottom;
+}
+
+.form-submit-btn:hover:before {
+  top: -6px;
+  left: 0;
+  transform: perspective(1000px) rotateX(75deg);
+}
+
+.form-submit-btn:hover:after {
+  top: 6px;
+  left: 0;
+  transform: perspective(1000px) rotateX(-77deg);
+}
+
+.form-submit-btn:hover {
+  content: "sure?";
+  color: #020355;
+  font-weight: 900;
+  background-color: rgba(250, 4, 4, 0.137);
+  cursor: pointer;
+}
+
+.form-submit-btn:disabled,
+.form-submit-btn[disabled] {
+  visibility: hidden;
+}
