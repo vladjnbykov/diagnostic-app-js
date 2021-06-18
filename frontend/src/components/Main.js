@@ -14,6 +14,7 @@ import symptoms from "../reducers/symptoms";
 
 import "./main.css";
 
+
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const items = useSelector((store) => store.symptoms.items);
