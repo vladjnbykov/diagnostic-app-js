@@ -14,22 +14,21 @@ mongoose.Promise = Promise
 
 // MongoDB collection for set of symptoms
 const Symptom = mongoose.model('Symptom', {
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
+
+
     age: { 
         type: Number,
         required: true
     },
     gender: String,
     checkedItems: {},
-    items: {},
-    polyuria: Boolean,
-    polydipsia: Boolean,
-    weakness: Boolean,
-    genital_trush: Boolean,
-    itching: Boolean,
-    irritability: Boolean,
-    delayed_healing: Boolean,
-    alopecia: Boolean,
-    obesity: Boolean
+    items: {}
+    
 
     
 })
@@ -45,6 +44,10 @@ const User = mongoose.model('User', {
     password: {
         type: String,
         required: true
+    },
+    role: {
+        type: String,
+        default: "user"
     },
     accessToken: {
         type: String,
@@ -86,10 +89,11 @@ app.get('/symptoms', async (req, res) => {
 
 app.post('/symptoms', authenticateUser)
 app.post('/symptoms', async (req, res) => {
-    const { age, gender, polyuria, polydipsia, weakness, genital_thrush, itching, irritability, delayed_healing, alopecia, obesity, checkedItems } = req.body
+    const { username, age, gender, polyuria, polydipsia, weakness, genital_thrush, itching, irritability, delayed_healing, alopecia, obesity, checkedItems } = req.body
 
     try {
         const newSymptom = await new Symptom({ 
+            username, 
             age, 
             gender, 
             polyuria, 
@@ -112,20 +116,22 @@ app.post('/symptoms', async (req, res) => {
 })
 
 app.post('/signup', async (req, res) => {
-    const { username, password } = req.body
+    const { username, role, password } = req.body
 
     try {
         const salt = bcrypt.genSaltSync()
 
         const newUser = await new User({
             username,
-            password: bcrypt.hashSync(password, salt)
+            password: bcrypt.hashSync(password, salt),
+            role
         }).save()
 
         res.json({
             success: true,
             userID: newUser._id,
             username: newUser.username,
+            role: newUser.role,
             accessToken: newUser.accessToken
         })
     } catch (error) {
@@ -135,7 +141,7 @@ app.post('/signup', async (req, res) => {
 })
 
 app.post('/signin', async (req, res) => {
-    const { username, password } = req.body
+    const { username, role, password } = req.body
 
     try {
         const user = await User.findOne({ username })
@@ -145,6 +151,7 @@ app.post('/signin', async (req, res) => {
                 success: true,
                 userID: user._id,
                 username: user.username,
+                role: user.role,
                 accessToken: user.accessToken
             })
         } else {

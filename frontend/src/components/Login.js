@@ -7,6 +7,10 @@ import TextField from "@material-ui/core/TextField";
 
 import user from "../reducers/user";
 
+
+
+import symptoms from "../reducers/symptoms";
+
 import { API_URL } from "../reusable/urls";
 
 import "./login.css";
@@ -25,6 +29,7 @@ const Login = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("")
   const [mode, setMode] = useState(null);
 
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -47,7 +52,7 @@ const Login = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+       body: JSON.stringify({ username, password }),
     };
 
     fetch(API_URL(mode), options)
@@ -57,6 +62,10 @@ const Login = () => {
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUsername(data.username));
+            dispatch(symptoms.actions.setUsername(data.username));
+            dispatch(user.actions.setRole(data.role));
+
+
             dispatch(user.actions.setAccessToken(data.accessToken));
             dispatch(user.actions.setErrors(null));
 
@@ -64,6 +73,7 @@ const Login = () => {
               "user",
               JSON.stringify({
                 username: data.username,
+                role: data.role,
                 accessToken: data.accessToken,
               })
             );
@@ -115,6 +125,8 @@ const Login = () => {
             Sign up
           </button>
         </form>
+        {errors && <div className="errors">{errors.message}</div>}
+
       </div>
     </div>
   );

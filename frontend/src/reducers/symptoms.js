@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const symptoms = createSlice({
   name: "symptoms",
   initialState: {
+    username: null,
     age: null,
     gender: null,
     loading: false,
@@ -11,6 +12,9 @@ const symptoms = createSlice({
   },
 
   reducers: {
+    setUsername: (store, action) => {
+      store.username = action.payload;
+    },
     setAge: (store, action) => {
       store.age = action.payload;
     },

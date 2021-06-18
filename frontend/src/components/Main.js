@@ -19,6 +19,8 @@ const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const items = useSelector((store) => store.symptoms.items);
 
+  const username = useSelector((store) => store.user.username)
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -86,7 +88,7 @@ const Main = () => {
         Authorization: accessToken,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ age, gender, checkedItems, items, parameters }),
+      body: JSON.stringify({ username, age, gender, checkedItems, items, parameters }),
     };
 
     fetch(API_URL("symptoms"), options)
