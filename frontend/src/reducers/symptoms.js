@@ -5,7 +5,7 @@ const symptoms = createSlice({
   initialState: {
     age: null,
     gender: null,
-    
+    loading: false,
     checkedItems: {}
     
   },
@@ -36,6 +36,10 @@ const symptoms = createSlice({
 
     setErrors: (store, action) => {
       store.errors = action.payload;
+    },
+
+    setLoading: (store, action) => {
+      store.loading = action.payload
     }
 
     

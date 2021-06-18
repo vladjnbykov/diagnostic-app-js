@@ -75,7 +75,9 @@ const Main = () => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    
+    //
+    dispatch(symptoms.actions.setLoading(true))
+  
 
     const options = {
       method: "POST",
@@ -148,7 +150,9 @@ const Main = () => {
             console.log(risk);
 
             dispatch(symptoms.actions.setRisk(risk));
-
+            //
+            dispatch(symptoms.actions.setLoading(false))
+            //
           });
 
         console.log("multiparameters", parameters);

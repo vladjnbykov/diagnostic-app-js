@@ -27,8 +27,11 @@ const Prognosis = () => {
 
   const results = Math.round(useSelector((store) => store.symptoms.risk));
   const history = useHistory();
-  //
 
+
+  //
+  const loading = useSelector((store) => store.symptoms.loading)
+  //
   const isBackgroundColor = () => {
     let color;
     if (results >= 0 && results < 15) {
@@ -53,10 +56,16 @@ const Prognosis = () => {
   return (
     <>
       <div className="prognosis">
+        {loading && <div className="loading-spinner">LOADING</div>}
+
         <h2 className="prognosis-title">Results</h2>
         <Background color={isBackgroundColor()}>
           <h5>Your risk of developing diabetes is {results}%</h5>
         </Background>
+        
+
+
+
       </div>
 
     </>
