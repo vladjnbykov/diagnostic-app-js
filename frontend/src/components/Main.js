@@ -21,6 +21,10 @@ const Main = () => {
 
   const username = useSelector((store) => store.user.username)
 
+    //
+  const role = useSelector((store) => store.user.role)
+  //
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -61,8 +65,12 @@ const Main = () => {
     }
   }, [accessToken, history]);
 
+
   useEffect(() => {
-    if (accessToken) {
+    // adding && role==='admin'
+    if (accessToken && role==='admin') {
+      
+
       const options = {
         method: "GET",
         headers: {
@@ -74,7 +82,28 @@ const Main = () => {
         .then((res) => res.json())
         .then((data) => dispatch(symptoms.actions.setSymptoms(data)));
     }
-  }, [accessToken, dispatch]);
+  }, [accessToken, role, dispatch])
+
+  useEffect(() => {
+    // adding && role==='admin'
+    if (accessToken && role==='admin') {
+      //
+      history.push("/symptoms");
+
+      const options = {
+        method: "GET",
+        headers: {
+          Authorization: accessToken,
+        },
+      };
+
+      fetch(API_URL("symptoms"), options)
+        .then((res) => res.json())
+        .then((data) => dispatch(symptoms.actions.setSymptoms(data)));
+    }
+  }, [accessToken, role, history, dispatch]);
+
+
 
   const onFormSubmit = (e) => {
     e.preventDefault();

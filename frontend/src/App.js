@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Main from "./components/Main";
 import Login from "./components/Login";
+import Admin from "./components/Admin";
 
 
 
@@ -26,6 +27,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/login" component={Login} />
+          <Route path="/symptoms" component={Admin} />
         </Switch>
         <Footer />
 
