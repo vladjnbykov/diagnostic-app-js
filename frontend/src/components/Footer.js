@@ -14,7 +14,9 @@ const Footer = () => {
       dispatch(user.actions.setUsername(null));
       dispatch(user.actions.setAccessToken(null));
 
+
       localStorage.removeItem("user");
+      // localStorage.removeItem("symptoms")
     });
   };
 

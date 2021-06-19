@@ -27,7 +27,8 @@ const Symptom = mongoose.model('Symptom', {
     },
     gender: String,
     checkedItems: {},
-    items: {}
+    items: {},
+    risk: Number
     
 
     
@@ -89,13 +90,15 @@ app.get('/symptoms', async (req, res) => {
 
 app.post('/symptoms', authenticateUser)
 app.post('/symptoms', async (req, res) => {
-    const { username, age, gender, polyuria, polydipsia, weakness, genital_thrush, itching, irritability, delayed_healing, alopecia, obesity, checkedItems } = req.body
+    const { username, age, gender, risk, items, polyuria, polydipsia, weakness, genital_thrush, itching, irritability, delayed_healing, alopecia, obesity, checkedItems } = req.body
 
     try {
         const newSymptom = await new Symptom({ 
             username, 
             age, 
-            gender, 
+            gender,
+            risk, 
+            items,
             polyuria, 
             polydipsia, 
             weakness, 

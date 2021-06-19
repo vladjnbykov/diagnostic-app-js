@@ -23,6 +23,7 @@ const Main = () => {
 
     //
   const role = useSelector((store) => store.user.role)
+  const risk = useSelector((store) => store.symptoms.risk)
   //
 
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const Main = () => {
   const [checkedItems, setCheckedItems] = useState("");
   let [parameters, setParameters] = useState({});
 
-  const [risk, setRisk] = useState({});
+  //const [risk, setRisk] = useState({});
 
   const [isSubmitted, setIsSubmited] = useState(false);
 
@@ -117,7 +118,7 @@ const Main = () => {
         Authorization: accessToken,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, age, gender, checkedItems, items, parameters }),
+      body: JSON.stringify({ username, age, gender, risk, checkedItems, items, parameters }),
     };
 
     fetch(API_URL("symptoms"), options)
@@ -127,6 +128,8 @@ const Main = () => {
         parameters = {
           age: data.age,
           gender: data.gender === "male" ? 1 : 0,
+
+          
           polyuria:
             data.checkedItems.polyuria === undefined 
               ? 0
@@ -197,7 +200,7 @@ const Main = () => {
           dispatch(symptoms.actions.setAge(data.age));
           dispatch(symptoms.actions.setGender(data.gender));
           dispatch(symptoms.actions.setCheckedItems(data.checkedItems));
-
+          
           dispatch(symptoms.actions.setErrors(null));
 
           dispatch(symptoms.actions.setParameters(parameters));
