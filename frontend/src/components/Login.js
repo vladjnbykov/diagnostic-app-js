@@ -29,7 +29,7 @@ const Login = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("")
+  //const [role, setRole] = useState("")
   const [mode, setMode] = useState(null);
 
   const accessToken = useSelector((store) => store.user.accessToken);

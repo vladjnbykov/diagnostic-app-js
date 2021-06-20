@@ -13,19 +13,11 @@ const Admin = () => {
 
   const history = useHistory();
 
-  
-      
-
-
-
   useEffect(() => {
     if (!accessToken) {
       history.push("/login");
     }
   }, [accessToken, history]);
-
-
-
 
   return (
     <div>
@@ -38,32 +30,7 @@ const Admin = () => {
           <div>username: {item.username}</div>
           <div>age: {item.age}</div>
           <div>gender: {item.gender}</div>
-
-          <div>
-            noted:{" "}
-            {Object.entries(item.checkedItems).map((item) => (
-              <div>{item}</div>
-            ))}
-          </div>
-
-          {/*      
-          <div>
-            complete:{" "}
-            {Object.entries(item.checkedItems).map((item) => (
-              
-                <div>
-                  {Boolean((Object.values(item)).indexOf(true)) ? {item} : null } 
-
-                
-                </div>
-                    
- 
-            ))
-            }
-
-          </div>      
-        */}
-
+          <div>risk of diabetes: {item.risk}%</div>
         </div>
       ))}
     </div>

@@ -14,17 +14,15 @@ import symptoms from "../reducers/symptoms";
 
 import "./main.css";
 
-
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const items = useSelector((store) => store.symptoms.items);
 
-  const username = useSelector((store) => store.user.username)
+  const username = useSelector((store) => store.user.username);
 
-    //
-  const role = useSelector((store) => store.user.role)
-  //const risk = useSelector((store) => store.symptoms.risk)
-  //
+  
+  const role = useSelector((store) => store.user.role);
+  
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,16 +36,15 @@ const Main = () => {
 
   const [isSubmitted, setIsSubmited] = useState(false);
 
-
   const isFormComplete = () => {
-    if (age === '') {
-      return false
+    if (age === "") {
+      return false;
     }
-    if (gender === '') {
-      return false
+    if (gender === "") {
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const handleChange = (event) => {
     setCheckedItems({
@@ -66,12 +63,9 @@ const Main = () => {
     }
   }, [accessToken, history]);
 
-
   useEffect(() => {
     // adding && role==='admin'
-    if (accessToken && role==='admin') {
-      
-
+    if (accessToken && role === "admin") {
       const options = {
         method: "GET",
         headers: {
@@ -83,11 +77,11 @@ const Main = () => {
         .then((res) => res.json())
         .then((data) => dispatch(symptoms.actions.setSymptoms(data)));
     }
-  }, [accessToken, role, dispatch])
+  }, [accessToken, role, dispatch]);
 
   useEffect(() => {
     // adding && role==='admin'
-    if (accessToken && role==='admin') {
+    if (accessToken && role === "admin") {
       //
       history.push("/symptoms");
 
@@ -104,13 +98,10 @@ const Main = () => {
     }
   }, [accessToken, role, history, dispatch]);
 
-
-
   const onFormSubmit = (e) => {
     e.preventDefault();
     //
-    dispatch(symptoms.actions.setLoading(true))
-  
+    dispatch(symptoms.actions.setLoading(true));
 
     const options = {
       method: "POST",
@@ -118,22 +109,29 @@ const Main = () => {
         Authorization: accessToken,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, age, gender, risk, checkedItems, items, parameters }),
+      body: JSON.stringify({
+        username,
+        age,
+        gender,
+        risk,
+        checkedItems,
+        items,
+        parameters,
+      }),
     };
 
     fetch(API_URL("symptoms"), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log("data", data)
-        const id = data._id
-        console.log('ID', id)
+        console.log("data", data);
+        const id = data._id;
+        console.log("ID", id);
         parameters = {
           age: data.age,
           gender: data.gender === "male" ? 1 : 0,
 
-          
           polyuria:
-            data.checkedItems.polyuria === undefined 
+            data.checkedItems.polyuria === undefined
               ? 0
               : Number(data.checkedItems.polyuria),
           polydipsia:
@@ -188,73 +186,37 @@ const Main = () => {
             console.log(risk);
 
             dispatch(symptoms.actions.setRisk(risk));
-            //
-            dispatch(symptoms.actions.setLoading(false))
-            //
+            dispatch(symptoms.actions.setLoading(false));
+            
           });
 
-        console.log("multiparameters", parameters);
-        console.log("mixtest", parameters.itching);
-        console.log("stringify", JSON.stringify(parameters));
-
-        console.log(typeof parameters);
+        
 
         batch(() => {
           dispatch(symptoms.actions.setAge(data.age));
           dispatch(symptoms.actions.setGender(data.gender));
           dispatch(symptoms.actions.setCheckedItems(data.checkedItems));
-          
+
           dispatch(symptoms.actions.setErrors(null));
 
           dispatch(symptoms.actions.setParameters(parameters));
           dispatch(symptoms.actions.setId(data._id));
-
-
         });
-        
+
         console.log("params-inside-fun", parameters);
-
-
-
-        console.log('symptomID', id)
-
-        console.log('risk', risk)
-
-
-        
-
-
-
-
-
-
-
-
-
 
         setIsSubmited(true);
       });
-      
-
-      
-
-      
-        
-
-
-
-
-
-
 
     console.log("params", parameters);
   };
   if (isSubmitted === false) {
     return (
       <div>
-      
         <form className="main" onSubmit={onFormSubmit}>
-          <h3 className="main-title">Welcome to diabetes risk estimation test</h3>
+          <h3 className="main-title">
+            Welcome to diabetes risk estimation test
+          </h3>
           <div>
             <h4>input your age</h4>
             <input
@@ -285,7 +247,7 @@ const Main = () => {
             />
             <label htmlFor="female">female</label>
           </div>
-          
+
           <h4>check if you suffer from:</h4>
 
           <div className="checkboxes">
@@ -295,7 +257,6 @@ const Main = () => {
                 {item.label}
                 <Checkbox
                   name={item.name}
-                  
                   checked={checkedItems[item.name]}
                   onChange={handleChange}
                 />
@@ -303,14 +264,19 @@ const Main = () => {
             ))}
           </div>
 
-          <button  type="submit" className="form-submit-btn" disabled={!isFormComplete()} >Submit</button>
+          <button
+            type="submit"
+            className="form-submit-btn"
+            disabled={!isFormComplete()}
+          >
+            Submit
+          </button>
         </form>
       </div>
     );
   } else {
     return <Prognosis />;
   }
-
 };
 
 export default Main;
