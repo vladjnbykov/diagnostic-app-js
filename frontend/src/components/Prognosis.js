@@ -1,11 +1,20 @@
 import React, { useEffect } from "react";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import styled from "styled-components";
 
 import "./prognosis.css";
+
+import { API_URL } from "../reusable/urls";
+import symptoms from "../reducers/symptoms";
+
+
+
+
+
+
 
 
 
@@ -27,6 +36,16 @@ const Prognosis = () => {
 
   const results = Math.round(useSelector((store) => store.symptoms.risk));
   const history = useHistory();
+
+
+
+  const risk = useSelector((store) => store.symptoms.risk)
+  const id = useSelector((store) => store.symptoms.id)
+
+  
+  const dispatch = useDispatch();
+
+
 
 
   //
@@ -52,6 +71,35 @@ const Prognosis = () => {
       history.push("/login");
     }
   }, [accessToken, history]);
+
+  // PATCH request for risk
+  const optionsPatch = {
+    method: "PATCH",
+    headers: {
+      Authorization: accessToken,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({risk}),
+  };
+  
+  fetch((API_URL("symptoms/") + id) , optionsPatch)
+      .then((res) => res.json())
+      .then((patch_risk) => {
+        console.log("patch response", patch_risk);
+
+        
+        dispatch(symptoms.actions.setLoading(false))
+      //
+      })
+
+
+
+
+
+
+
+
+
 
   return (
     <>

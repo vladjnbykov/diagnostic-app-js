@@ -46,6 +46,10 @@ const symptoms = createSlice({
       store.items = action.payload;
     },
 
+    setId: (store, action) => {
+      store.id = action.payload;
+    },
+
     setErrors: (store, action) => {
       store.errors = action.payload;
     },

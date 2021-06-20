@@ -23,7 +23,7 @@ const Main = () => {
 
     //
   const role = useSelector((store) => store.user.role)
-  const risk = useSelector((store) => store.symptoms.risk)
+  //const risk = useSelector((store) => store.symptoms.risk)
   //
 
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const Main = () => {
   const [checkedItems, setCheckedItems] = useState("");
   let [parameters, setParameters] = useState({});
 
-  //const [risk, setRisk] = useState({});
+  const [risk, setRisk] = useState("");
 
   const [isSubmitted, setIsSubmited] = useState(false);
 
@@ -125,6 +125,8 @@ const Main = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log("data", data)
+        const id = data._id
+        console.log('ID', id)
         parameters = {
           age: data.age,
           gender: data.gender === "male" ? 1 : 0,
@@ -181,6 +183,7 @@ const Main = () => {
           .then((res) => res.json())
           .then((ml_data) => {
             console.log("ml response", ml_data);
+
             const risk = Object.entries(ml_data)[0][1];
             console.log(risk);
 
@@ -204,13 +207,45 @@ const Main = () => {
           dispatch(symptoms.actions.setErrors(null));
 
           dispatch(symptoms.actions.setParameters(parameters));
+          dispatch(symptoms.actions.setId(data._id));
+
+
         });
         
         console.log("params-inside-fun", parameters);
 
+
+
+        console.log('symptomID', id)
+
+        console.log('risk', risk)
+
+
+        
+
+
+
+
+
+
+
+
+
+
         setIsSubmited(true);
       });
       
+
+      
+
+      
+        
+
+
+
+
+
+
 
     console.log("params", parameters);
   };
@@ -218,7 +253,6 @@ const Main = () => {
     return (
       <div>
       
-
         <form className="main" onSubmit={onFormSubmit}>
           <h3 className="main-title">Welcome to diabetes risk estimation test</h3>
           <div>
