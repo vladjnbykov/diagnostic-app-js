@@ -28,7 +28,9 @@ const Symptom = mongoose.model('Symptom', {
     gender: String,
     checkedItems: {},
     items: {},
-    risk: Number
+    risk: Number,
+    parameters: {}
+
     
 
     
@@ -90,7 +92,7 @@ app.get('/symptoms', async (req, res) => {
 
 app.post('/symptoms', authenticateUser)
 app.post('/symptoms', async (req, res) => {
-    const { username, age, gender, risk, items, polyuria, polydipsia, weakness, genital_thrush, itching, irritability, delayed_healing, alopecia, obesity, checkedItems } = req.body
+    const { username, age, gender, risk, items, polyuria, polydipsia, weakness, genital_thrush, itching, irritability, delayed_healing, alopecia, obesity, checkedItems, parameters } = req.body
 
     try {
         const newSymptom = await new Symptom({ 
@@ -108,7 +110,8 @@ app.post('/symptoms', async (req, res) => {
             delayed_healing, 
             alopecia, 
             obesity,
-            checkedItems
+            checkedItems,
+            parameters
          }).save()
         res.json(newSymptom)
 
@@ -117,6 +120,26 @@ app.post('/symptoms', async (req, res) => {
     }
 
 })
+
+// PATCH
+app.patch('/symptoms/:id', async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const updatedSymptom = await Symptom.findByIdAndUpdate(id, { risk: req.body.risk }, { new: true })
+        if (updatedSymptom) {
+            res.json(updatedSymptom)
+        } else {
+            res.status(404).json({ message: 'Not found' })
+        }
+
+    } catch (error) {
+        res.status(400).json({ message: 'Invalid request', error })
+    }
+
+})
+
+
 
 app.post('/signup', async (req, res) => {
     const { username, role, password } = req.body

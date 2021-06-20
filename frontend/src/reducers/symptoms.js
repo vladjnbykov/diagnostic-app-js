@@ -11,7 +11,8 @@ const symptoms = createSlice({
     risk: null,
     items: [],
     loading: false,
-    checkedItems: []
+    checkedItems: [],
+    parameters:[]
     
   }, 
 
