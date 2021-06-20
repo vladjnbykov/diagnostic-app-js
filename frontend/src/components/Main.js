@@ -13,16 +13,17 @@ import { API_ML } from "../reusable/urls";
 import symptoms from "../reducers/symptoms";
 
 import "./main.css";
+import "./prognosis.css";
+
 
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const items = useSelector((store) => store.symptoms.items);
-
   const username = useSelector((store) => store.user.username);
-
-  
   const role = useSelector((store) => store.user.role);
-  
+
+  const loading = useSelector((store) => store.symptoms.loading);
+
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -30,11 +31,9 @@ const Main = () => {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [checkedItems, setCheckedItems] = useState("");
-  let [parameters, setParameters] = useState({});
-
-  const [risk, setRisk] = useState("");
-
   const [isSubmitted, setIsSubmited] = useState(false);
+  let parameters = {};
+  const risk = "";
 
   const isFormComplete = () => {
     if (age === "") {
@@ -123,9 +122,7 @@ const Main = () => {
     fetch(API_URL("symptoms"), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log("data", data);
-        const id = data._id;
-        console.log("ID", id);
+        //const id = data._id;
         parameters = {
           age: data.age,
           gender: data.gender === "male" ? 1 : 0,
@@ -180,17 +177,12 @@ const Main = () => {
         fetch(API_ML, options1)
           .then((res) => res.json())
           .then((ml_data) => {
-            console.log("ml response", ml_data);
 
             const risk = Object.entries(ml_data)[0][1];
-            console.log(risk);
 
-            dispatch(symptoms.actions.setRisk(risk));
-            dispatch(symptoms.actions.setLoading(false));
-            
+            dispatch(symptoms.actions.setRisk(Math.round(risk)));
+            //dispatch(symptoms.actions.setLoading(false));
           });
-
-        
 
         batch(() => {
           dispatch(symptoms.actions.setAge(data.age));
@@ -201,18 +193,21 @@ const Main = () => {
 
           dispatch(symptoms.actions.setParameters(parameters));
           dispatch(symptoms.actions.setId(data._id));
+
+          dispatch(symptoms.actions.setLoading(false));
+
         });
 
-        console.log("params-inside-fun", parameters);
 
         setIsSubmited(true);
       });
 
-    console.log("params", parameters);
   };
   if (isSubmitted === false) {
     return (
       <div>
+        {loading && <div className="loading-spinner">LOADING</div>}
+
         <form className="main" onSubmit={onFormSubmit}>
           <h3 className="main-title">
             Welcome to diabetes risk estimation test
@@ -253,7 +248,6 @@ const Main = () => {
           <div className="checkboxes">
             {checkboxes.map((item) => (
               <label key={item.key}>
-                {/*{item.name}*/}
                 {item.label}
                 <Checkbox
                   name={item.name}

@@ -10,14 +10,6 @@ import "./prognosis.css";
 import { API_URL } from "../reusable/urls";
 import symptoms from "../reducers/symptoms";
 
-
-
-
-
-
-
-
-
 const Background = styled.div`
   display: flex;
   align-items: center;
@@ -37,20 +29,13 @@ const Prognosis = () => {
   const results = Math.round(useSelector((store) => store.symptoms.risk));
   const history = useHistory();
 
+  const risk = useSelector((store) => store.symptoms.risk);
+  const id = useSelector((store) => store.symptoms.id);
 
-
-  const risk = useSelector((store) => store.symptoms.risk)
-  const id = useSelector((store) => store.symptoms.id)
-
-  
   const dispatch = useDispatch();
 
-
-
-
-  //
-  const loading = useSelector((store) => store.symptoms.loading)
-  //
+  const loading = useSelector((store) => store.symptoms.loading);
+  
   const isBackgroundColor = () => {
     let color;
     if (results >= 0 && results < 15) {
@@ -79,27 +64,16 @@ const Prognosis = () => {
       Authorization: accessToken,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({risk}),
+    body: JSON.stringify({ risk }),
   };
-  
-  fetch((API_URL("symptoms/") + id) , optionsPatch)
-      .then((res) => res.json())
-      .then((patch_risk) => {
-        console.log("patch response", patch_risk);
 
-        
-        dispatch(symptoms.actions.setLoading(false))
-      //
-      })
+  fetch(API_URL("symptoms/") + id, optionsPatch)
+    .then((res) => res.json())
+    .then((patch_risk) => {
 
-
-
-
-
-
-
-
-
+      dispatch(symptoms.actions.setLoading(false));
+      
+    });
 
   return (
     <>
@@ -110,12 +84,7 @@ const Prognosis = () => {
         <Background color={isBackgroundColor()}>
           <h5>Your risk of developing diabetes is {results}%</h5>
         </Background>
-        
-
-
-
       </div>
-
     </>
   );
 };
