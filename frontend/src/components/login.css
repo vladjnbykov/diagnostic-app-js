@@ -1,19 +1,7 @@
-html,
 body {
   margin: auto;
   background-color: rgb(237, 248, 247);
   color: navy;
-  width: 100%;
-  
-}
-
-.login-template {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  
-  
 }
 
 .login-title {
@@ -29,7 +17,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
 }
 
 .btn-signin {
@@ -50,7 +37,6 @@ body {
   border-radius: 5px;
   border: 1px solid rgb(16, 16, 49);
   box-shadow: 1px 1px 1px 1px rgba(2, 58, 80, 0.4);
-
 }
 
 .btn-signup:hover {
@@ -72,22 +58,25 @@ body {
   max-width: 500px;
 }
 
-
 /******************* MEDIA QUERIES ************/
-@media(min-width: 768px) {
-  body {
-    max-width: 500px;
-  }
+@media (min-width: 769px) {
+  
+
   .login-template {
-    max-width: 400px;
+    width: 200%;
+    margin: auto;
+    margin-top: 100px;
     
-    margin-top: 200px;
+
     border: 1px solid navy;
     box-shadow: 1px 1px 1px 1px rgba(2, 7, 80, 0.4);
-
-
-
-    
   }
 }
 
+@media (min-width: 1000px) {
+  .login-template {
+    justify-content: center;
+    width: 800px;
+    margin-left: auto;
+  }
+}

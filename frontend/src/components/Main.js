@@ -121,7 +121,7 @@ const Main = () => {
     fetch(API_URL("symptoms"), options)
       .then((res) => res.json())
       .then((data) => {
-        //const id = data._id;
+        // const id = data._id;
         parameters = {
           age: data.age,
           gender: data.gender === "male" ? 1 : 0,
