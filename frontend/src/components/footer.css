@@ -2,6 +2,7 @@ html,
 body {
   height: 100%;
   margin: 0px;
+  
 }
 
 body {
@@ -26,6 +27,8 @@ body {
   bottom: 0px;
   right: 2px;
   left: 0;
+
+  
 }
 
 h5 {
