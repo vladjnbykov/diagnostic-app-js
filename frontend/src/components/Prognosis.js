@@ -75,6 +75,7 @@ const Prognosis = () => {
     .then((patch_risk) => {
       dispatch(symptoms.actions.setLoading(false))
 
+
       
       
     })
