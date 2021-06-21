@@ -13,7 +13,6 @@ import { API_ML } from "../reusable/urls";
 import symptoms from "../reducers/symptoms";
 
 import "./main.css";
-import "./prognosis.css";
 
 
 const Main = () => {
@@ -194,7 +193,7 @@ const Main = () => {
           dispatch(symptoms.actions.setParameters(parameters));
           dispatch(symptoms.actions.setId(data._id));
 
-          dispatch(symptoms.actions.setLoading(false));
+          //dispatch(symptoms.actions.setLoading(false));
 
         });
 

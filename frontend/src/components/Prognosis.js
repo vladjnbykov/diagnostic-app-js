@@ -34,8 +34,11 @@ const Prognosis = () => {
 
   const dispatch = useDispatch();
 
+
+/////////////////////
   const loading = useSelector((store) => store.symptoms.loading);
-  
+/////////////////////  
+
   const isBackgroundColor = () => {
     let color;
     if (results >= 0 && results < 15) {
@@ -64,26 +67,29 @@ const Prognosis = () => {
       Authorization: accessToken,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ risk }),
+    body: JSON.stringify({ risk })
   };
 
   fetch(API_URL("symptoms/") + id, optionsPatch)
     .then((res) => res.json())
     .then((patch_risk) => {
+      dispatch(symptoms.actions.setLoading(false))
 
-      dispatch(symptoms.actions.setLoading(false));
       
-    });
+      
+    })
 
   return (
     <>
       <div className="prognosis">
-        {loading && <div className="loading-spinner">LOADING</div>}
+
 
         <h2 className="prognosis-title">Results</h2>
         <Background color={isBackgroundColor()}>
           <h5>Your risk of developing diabetes is {results}%</h5>
         </Background>
+        {loading && <div className="loading-spinner">LOADING</div>}
+
       </div>
     </>
   );

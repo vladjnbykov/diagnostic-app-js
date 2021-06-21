@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from "react"
 
-import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux"
+import { useHistory } from "react-router-dom"
 
-import "./admin.css";
-import "./prognosis.css";
+import "./admin.css"
+import "./prognosis.css"
 
 const Admin = () => {
-  const accessToken = useSelector((store) => store.user.accessToken);
-  const listItems = useSelector((store) => store.symptoms.items);
+  const accessToken = useSelector((store) => store.user.accessToken)
+  const listItems = useSelector((store) => store.symptoms.items)
 
-  const history = useHistory();
+  const history = useHistory()
 
   useEffect(() => {
     if (!accessToken) {
-      history.push("/login");
+      history.push("/login")
     }
-  }, [accessToken, history]);
+  }, [accessToken, history])
 
   return (
     <div>
@@ -32,7 +32,7 @@ const Admin = () => {
       ))}
       <h2 className="patient-placeholder">PLACEHOLDER</h2>
     </div>
-  );
-};
+  )
+}
 
-export default Admin;
+export default Admin

@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import user from "./reducers/user";
 import symptoms from "./reducers/symptoms";
 
+
 const reducer = combineReducers({
   user: user.reducer,
   symptoms: symptoms.reducer,
@@ -20,10 +21,17 @@ const reducer = combineReducers({
 
 const store = configureStore({ reducer });
 
+
+
+
+
 const App = () => {
+
+
   return (
     <BrowserRouter>
       <Provider store={store}>
+
         <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/login" component={Login} />
