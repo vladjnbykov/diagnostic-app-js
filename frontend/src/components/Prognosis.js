@@ -69,7 +69,7 @@ const Prognosis = () => {
 
   fetch(API_URL("symptoms/") + id, optionsPatch)
     .then((res) => res.json())
-    .then((patch_risk) => {
+    .then(() => {
       dispatch(symptoms.actions.setLoading(false))
     })
 

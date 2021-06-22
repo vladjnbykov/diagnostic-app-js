@@ -90,7 +90,7 @@ const Main = () => {
 
   const onFormSubmit = (e) => {
     e.preventDefault()
-    //
+    
     dispatch(symptoms.actions.setLoading(true))
 
     const options = {
@@ -171,7 +171,6 @@ const Main = () => {
             const risk = Object.entries(ml_data)[0][1]
 
             dispatch(symptoms.actions.setRisk(Math.round(risk)))
-            //dispatch(symptoms.actions.setLoading(false));
           })
 
         batch(() => {
