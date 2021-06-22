@@ -96,6 +96,7 @@ body {
   position: relative;
   transition: all 0.5s;
   color: transparent;
+  margin-bottom: 30px;
 }
 
 .form-submit-btn:before {
