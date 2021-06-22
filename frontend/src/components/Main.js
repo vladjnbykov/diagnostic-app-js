@@ -19,9 +19,7 @@ const Main = () => {
   const items = useSelector((store) => store.symptoms.items)
   const username = useSelector((store) => store.user.username)
   const role = useSelector((store) => store.user.role)
-  //
-  const loading = useSelector((store) => store.symptoms.loading)
-
+  
   const dispatch = useDispatch()
   const history = useHistory()
 
