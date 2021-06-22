@@ -60,23 +60,11 @@ body {
 
 /******************* MEDIA QUERIES ************/
 @media (min-width: 769px) {
-  
-
   .login-template {
-    width: 200%;
-    margin: auto;
+    margin: 20%;
     margin-top: 100px;
-    
 
     border: 1px solid navy;
     box-shadow: 1px 1px 1px 1px rgba(2, 7, 80, 0.4);
-  }
-}
-
-@media (min-width: 1000px) {
-  .login-template {
-    justify-content: center;
-    width: 800px;
-    margin-left: auto;
   }
 }

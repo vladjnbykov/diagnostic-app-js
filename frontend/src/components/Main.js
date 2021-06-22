@@ -20,7 +20,7 @@ const Main = () => {
   const items = useSelector((store) => store.symptoms.items);
   const username = useSelector((store) => store.user.username);
   const role = useSelector((store) => store.user.role);
-
+  //
   const loading = useSelector((store) => store.symptoms.loading);
 
 
@@ -99,9 +99,10 @@ const Main = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
     //
-    dispatch(symptoms.actions.setLoading(true));
+     dispatch(symptoms.actions.setLoading(false));
 
     const options = {
+      // POST
       method: "POST",
       headers: {
         Authorization: accessToken,
@@ -121,7 +122,7 @@ const Main = () => {
     fetch(API_URL("symptoms"), options)
       .then((res) => res.json())
       .then((data) => {
-        // const id = data._id;
+        //const id = data._id;
         parameters = {
           age: data.age,
           gender: data.gender === "male" ? 1 : 0,
@@ -180,7 +181,7 @@ const Main = () => {
             const risk = Object.entries(ml_data)[0][1];
 
             dispatch(symptoms.actions.setRisk(Math.round(risk)));
-            //dispatch(symptoms.actions.setLoading(false));
+            dispatch(symptoms.actions.setLoading(false));
           });
 
         batch(() => {
@@ -205,7 +206,6 @@ const Main = () => {
   if (isSubmitted === false) {
     return (
       <div>
-        {loading && <div className="loading-spinner">LOADING</div>}
 
         <form className="main" onSubmit={onFormSubmit}>
           <h3 className="main-title">

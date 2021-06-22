@@ -46,3 +46,14 @@
     transform: rotate(360deg);
   }
 }
+
+/******************* MEDIA QUERIES ************/
+@media (min-width: 769px) {
+  .prognosis {
+    margin: 20%;
+    margin-top: 100px;
+    padding-bottom: 120px;
+    border: 1px solid navy;
+    box-shadow: 1px 1px 1px 1px rgba(2, 7, 80, 0.4);
+  }
+}

@@ -17,7 +17,7 @@ const Symptom = mongoose.model('Symptom', {
     username: {
         type: String,
         required: true,
-        unique: true
+        unique: false
     },
 
 
@@ -90,6 +90,7 @@ app.get('/symptoms', async (req, res) => {
     res.json(symptoms)
 })
 
+// put REQUEST?
 app.post('/symptoms', authenticateUser)
 app.post('/symptoms', async (req, res) => {
     const { username, age, gender, risk, items, polyuria, polydipsia, weakness, genital_thrush, itching, irritability, delayed_healing, alopecia, obesity, checkedItems, parameters } = req.body

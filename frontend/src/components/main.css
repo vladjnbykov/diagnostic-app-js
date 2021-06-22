@@ -44,7 +44,6 @@ body {
   margin: 5px;
   width: 180px;
   margin-bottom: 30px;
-  
 }
 
 .loading-spinner {
@@ -81,7 +80,7 @@ body {
   100% {
     transform: rotate(360deg);
   }
-} 
+}
 
 /******************ALL DONE BUTTON**************/
 .form-submit-btn {
@@ -152,4 +151,15 @@ body {
 .form-submit-btn:disabled,
 .form-submit-btn[disabled] {
   visibility: hidden;
+}
+
+/******************* MEDIA QUERIES ************/
+@media (min-width: 769px) {
+  .main {
+    margin: 20%;
+    margin-top: 100px;
+
+    border: 1px solid navy;
+    box-shadow: 1px 1px 1px 1px rgba(2, 7, 80, 0.4);
+  }
 }
