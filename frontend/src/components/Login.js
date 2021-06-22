@@ -6,9 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
 import user from "../reducers/user";
-
-
-
 import symptoms from "../reducers/symptoms";
 
 import { API_URL } from "../reusable/urls";
@@ -29,7 +26,6 @@ const Login = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  //const [role, setRole] = useState("")
   const [mode, setMode] = useState(null);
 
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -64,8 +60,6 @@ const Login = () => {
             dispatch(user.actions.setUsername(data.username));
             dispatch(symptoms.actions.setUsername(data.username));
             dispatch(user.actions.setRole(data.role));
-
-
             dispatch(user.actions.setAccessToken(data.accessToken));
             dispatch(user.actions.setErrors(null));
 
@@ -96,7 +90,6 @@ const Login = () => {
             required
             label="username"
             autoFocus
-            /*type="text" */
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />

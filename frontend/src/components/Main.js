@@ -113,8 +113,8 @@ const Main = () => {
         age,
         gender,
         risk,
-        checkedItems,
         items,
+        checkedItems,
         parameters,
       
       }),
