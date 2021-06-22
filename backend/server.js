@@ -93,7 +93,7 @@ app.get('/symptoms', async (req, res) => {
 // put REQUEST?
 app.post('/symptoms', authenticateUser)
 app.post('/symptoms', async (req, res) => {
-    const { username, age, gender, risk, items, checkedItems } = req.body
+    const { username, age, gender, risk, items, checkedItems, parameters } = req.body
 
     try {
         const newSymptom = await new Symptom({ 
@@ -102,7 +102,8 @@ app.post('/symptoms', async (req, res) => {
             gender,
             risk, 
             items,
-            checkedItems
+            checkedItems,
+            parameters
         
          }).save()
         res.json(newSymptom)
