@@ -4,7 +4,6 @@ import { useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
 
 import "./admin.css"
-import "./prognosis.css"
 
 const Admin = () => {
   const accessToken = useSelector((store) => store.user.accessToken)

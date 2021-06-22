@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from "react"
 
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
 
-import styled from "styled-components";
+import styled from "styled-components"
 
-import "./prognosis.css";
+import "./prognosis.css"
 
-import { API_URL } from "../reusable/urls";
-import symptoms from "../reducers/symptoms";
+import { API_URL } from "../reusable/urls"
+import symptoms from "../reducers/symptoms"
 
 const Background = styled.div`
   display: flex;
@@ -20,45 +20,42 @@ const Background = styled.div`
   border-radius: 4px;
   box-shadow: 1px 1px 1px 1px rgba(2, 58, 80, 0.4);
   margin: 50px 40px 50px 40px;
-`;
+`
 
 //
 const Prognosis = () => {
-  const accessToken = useSelector((store) => store.user.accessToken);
+  const accessToken = useSelector((store) => store.user.accessToken)
 
-  const results = Math.round(useSelector((store) => store.symptoms.risk));
-  const history = useHistory();
+  const results = Math.round(useSelector((store) => store.symptoms.risk))
+  const history = useHistory()
 
-  const risk = useSelector((store) => store.symptoms.risk);
-  const id = useSelector((store) => store.symptoms.id);
+  const risk = useSelector((store) => store.symptoms.risk)
+  const id = useSelector((store) => store.symptoms.id)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-
-/////////////////////
-  const loading = useSelector((store) => store.symptoms.loading);
-/////////////////////  
+  const loading = useSelector((store) => store.symptoms.loading)
 
   const isBackgroundColor = () => {
-    let color;
+    let color
     if (results >= 0 && results < 15) {
-      color = "#CCCCFF";
+      color = "#CCCCFF"
     } else if (results >= 15 && results < 40) {
-      color = "#D0FFCD";
+      color = "#D0FFCD"
     } else if (results >= 40 && results < 70) {
-      color = "#FFFFCD";
+      color = "#FFFFCD"
     } else if (results >= 70) {
-      color = "#FFCDCD";
+      color = "#FFCDCD"
     }
 
-    return color;
-  };
+    return color
+  }
 
   useEffect(() => {
     if (!accessToken) {
-      history.push("/login");
+      history.push("/login")
     }
-  }, [accessToken, history]);
+  }, [accessToken, history])
 
   // PATCH request for risk
   const optionsPatch = {
@@ -67,33 +64,26 @@ const Prognosis = () => {
       Authorization: accessToken,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ risk })
-  };
+    body: JSON.stringify({ risk }),
+  }
 
   fetch(API_URL("symptoms/") + id, optionsPatch)
     .then((res) => res.json())
     .then((patch_risk) => {
       dispatch(symptoms.actions.setLoading(false))
-
-
-      
-      
     })
 
   return (
     <>
       <div className="prognosis">
-
-
         <h2 className="prognosis-title">Results</h2>
         <Background color={isBackgroundColor()}>
           <h5>Your risk of developing diabetes is {results}%</h5>
         </Background>
         {loading && <div className="loading-spinner">LOADING</div>}
-
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Prognosis;
+export default Prognosis

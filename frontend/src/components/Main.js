@@ -1,65 +1,59 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch, batch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { useSelector, useDispatch, batch } from "react-redux"
+import { useHistory } from "react-router-dom"
 
-import { checkboxes } from "../utils/checkboxes";
-import Checkbox from "./Checkbox";
+import { checkboxes } from "../utils/checkboxes"
+import Checkbox from "./Checkbox"
 
-import Prognosis from "./Prognosis";
+import Prognosis from "./Prognosis"
 
-import { API_URL } from "../reusable/urls";
-import { API_ML } from "../reusable/urls";
+import { API_URL } from "../reusable/urls"
+import { API_ML } from "../reusable/urls"
 
-import symptoms from "../reducers/symptoms";
+import symptoms from "../reducers/symptoms"
 
-import "./main.css";
-
+import "./main.css"
 
 const Main = () => {
-  const accessToken = useSelector((store) => store.user.accessToken);
-  const items = useSelector((store) => store.symptoms.items);
-  const username = useSelector((store) => store.user.username);
-  const role = useSelector((store) => store.user.role);
+  const accessToken = useSelector((store) => store.user.accessToken)
+  const items = useSelector((store) => store.symptoms.items)
+  const username = useSelector((store) => store.user.username)
+  const role = useSelector((store) => store.user.role)
   //
-  //const loading = useSelector((store) => store.symptoms.loading);
+  const loading = useSelector((store) => store.symptoms.loading)
 
+  const dispatch = useDispatch()
+  const history = useHistory()
 
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [checkedItems, setCheckedItems] = useState("");
-  const [isSubmitted, setIsSubmited] = useState(false);
-  let parameters = {};
-  const risk = "";
+  const [age, setAge] = useState("")
+  const [gender, setGender] = useState("")
+  const [checkedItems, setCheckedItems] = useState("")
+  const [isSubmitted, setIsSubmited] = useState(false)
+  let parameters = {}
+  const risk = ""
 
   const isFormComplete = () => {
     if (age === "") {
-      return false;
+      return false
     }
     if (gender === "") {
-      return false;
+      return false
     }
-    return true;
-  };
+    return true
+  }
 
   const handleChange = (event) => {
     setCheckedItems({
       ...checkedItems,
       [event.target.name]: event.target.checked,
-    });
-  };
-
-  useEffect(() => {
-    console.log("checkedItems: ", checkedItems);
-  }, [checkedItems]);
+    })
+  }
 
   useEffect(() => {
     if (!accessToken) {
-      history.push("/login");
+      history.push("/login")
     }
-  }, [accessToken, history]);
+  }, [accessToken, history])
 
   useEffect(() => {
     // adding && role==='admin'
@@ -69,37 +63,37 @@ const Main = () => {
         headers: {
           Authorization: accessToken,
         },
-      };
+      }
 
       fetch(API_URL("symptoms"), options)
         .then((res) => res.json())
-        .then((data) => dispatch(symptoms.actions.setSymptoms(data)));
+        .then((data) => dispatch(symptoms.actions.setSymptoms(data)))
     }
-  }, [accessToken, role, dispatch]);
+  }, [accessToken, role, dispatch])
 
   useEffect(() => {
     // adding && role==='admin'
     if (accessToken && role === "admin") {
       //
-      history.push("/symptoms");
+      history.push("/symptoms")
 
       const options = {
         method: "GET",
         headers: {
           Authorization: accessToken,
         },
-      };
+      }
 
       fetch(API_URL("symptoms"), options)
         .then((res) => res.json())
-        .then((data) => dispatch(symptoms.actions.setSymptoms(data)));
+        .then((data) => dispatch(symptoms.actions.setSymptoms(data)))
     }
-  }, [accessToken, role, history, dispatch]);
+  }, [accessToken, role, history, dispatch])
 
   const onFormSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     //
-     dispatch(symptoms.actions.setLoading(true));
+    dispatch(symptoms.actions.setLoading(true))
 
     const options = {
       // POST
@@ -116,9 +110,8 @@ const Main = () => {
         items,
         checkedItems,
         parameters,
-      
       }),
-    };
+    }
 
     fetch(API_URL("symptoms"), options)
       .then((res) => res.json())
@@ -164,7 +157,7 @@ const Main = () => {
             data.checkedItems.obesity === undefined
               ? 0
               : Number(data.checkedItems.obesity),
-        };
+        }
 
         // ML fetch inside of first fetch
         const options1 = {
@@ -173,41 +166,33 @@ const Main = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(parameters),
-        };
+        }
 
         fetch(API_ML, options1)
           .then((res) => res.json())
           .then((ml_data) => {
+            const risk = Object.entries(ml_data)[0][1]
 
-            const risk = Object.entries(ml_data)[0][1];
-
-            dispatch(symptoms.actions.setRisk(Math.round(risk)));
-            dispatch(symptoms.actions.setLoading(false));
-          });
+            dispatch(symptoms.actions.setRisk(Math.round(risk)))
+            //dispatch(symptoms.actions.setLoading(false));
+          })
 
         batch(() => {
-          dispatch(symptoms.actions.setAge(data.age));
-          dispatch(symptoms.actions.setGender(data.gender));
-          dispatch(symptoms.actions.setCheckedItems(data.checkedItems));
+          dispatch(symptoms.actions.setAge(data.age))
+          dispatch(symptoms.actions.setGender(data.gender))
+          dispatch(symptoms.actions.setCheckedItems(data.checkedItems))
+          dispatch(symptoms.actions.setErrors(null))
+          dispatch(symptoms.actions.setParameters(parameters))
+          dispatch(symptoms.actions.setId(data._id))
+          dispatch(symptoms.actions.setLoading(true))
+        })
 
-          dispatch(symptoms.actions.setErrors(null));
-
-          dispatch(symptoms.actions.setParameters(parameters));
-          dispatch(symptoms.actions.setId(data._id));
-
-          dispatch(symptoms.actions.setLoading(false));
-
-        });
-
-
-        setIsSubmited(true);
-      });
-
-  };
+        setIsSubmited(true)
+      })
+  }
   if (isSubmitted === false) {
     return (
       <div>
-
         <form className="main" onSubmit={onFormSubmit}>
           <h3 className="main-title">
             Welcome to diabetes risk estimation test
@@ -267,10 +252,15 @@ const Main = () => {
           </button>
         </form>
       </div>
-    );
+    )
   } else {
-    return <Prognosis />;
+    return (
+      <>
+        <Prognosis />
+        {loading && <div className="loading-spinner">LOADING</div>}
+      </>
+    )
   }
-};
+}
 
-export default Main;
+export default Main
