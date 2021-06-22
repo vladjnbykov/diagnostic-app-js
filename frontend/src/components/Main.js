@@ -21,7 +21,7 @@ const Main = () => {
   const username = useSelector((store) => store.user.username);
   const role = useSelector((store) => store.user.role);
   //
-  const loading = useSelector((store) => store.symptoms.loading);
+  //const loading = useSelector((store) => store.symptoms.loading);
 
 
   const dispatch = useDispatch();
