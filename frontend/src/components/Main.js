@@ -99,7 +99,7 @@ const Main = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
     //
-     dispatch(symptoms.actions.setLoading(false));
+     dispatch(symptoms.actions.setLoading(true));
 
     const options = {
       // POST
@@ -194,7 +194,7 @@ const Main = () => {
           dispatch(symptoms.actions.setParameters(parameters));
           dispatch(symptoms.actions.setId(data._id));
 
-          //dispatch(symptoms.actions.setLoading(false));
+          dispatch(symptoms.actions.setLoading(false));
 
         });
 
