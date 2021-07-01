@@ -76,11 +76,14 @@ const Prognosis = () => {
   return (
     <>
       <div className="prognosis">
-        <h2 className="prognosis-title">Results</h2>
-        <Background color={isBackgroundColor()}>
-          <h5>Your risk of developing diabetes is {results}%</h5>
-        </Background>
-        {loading && <div className="loading-spinner">LOADING</div>}
+      <h2 className="prognosis-title">Results</h2>
+
+        {loading ? <div className="loading-spinner">LOADING</div> :
+          <Background color={isBackgroundColor()}>
+            <h5>Your risk of developing diabetes is {results}%</h5>
+          </Background>
+        }
+        
       </div>
     </>
   )
